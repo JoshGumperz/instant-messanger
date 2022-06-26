@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const Message = require('../models/message');
+const Message = require('../models/Message');
 const { verifyTokenAndAdmin, verifyToken, getToken, verifyTokenAndOwner } = require('../utils/verifyToken');
 
-// GET ALL MESSAGES BY USER ID -> /API/MESSAGE/FIND/:userId
+// GET ALL MESSAGES BY USER ID -> /API/MESSAGE/FIND/USER/:userId
 router.get('find/user/:userId', verifyTokenAndAdmin, async (req, res) => {
     try {
         const messages =  await Message.find({userId: req.params.userId});

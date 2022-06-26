@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-const getToken = (req, res) => {
+const getToken = (req) => {
     const authHeader = req.headers.token
     if(authHeader) {
         let tokenData
@@ -44,15 +44,11 @@ const verifyTokenAndAuthorization = (req, res, next) => {
 }
 
 const verifyTokenAndOwner = (req, item) => {
-    const authHeader = req.headers.id;
-    if(authHeader) {
-        const userId = authHeader.split(" ")[1];
-        const token = getToken(req)
-        if(item.validate(userId) || token.admin) {
+    const token = getToken(req)
+    if(token) {
+        if(token.admin || item.checkAuth(token.id))
             return true
-        } else {
-            return false
-        }
+        return false
     } else {
         return false
     }

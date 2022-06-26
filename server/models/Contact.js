@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const ContactSchema = new mongoose.Schema(
     {
         userId: { type: String, required: true },
-        contactId: { type: String, required: true },
+        contactId: { type: String, required: true }
     },
     { timestamps: true }
 );
 
-MessageSchema.methods.validate = function (id) {
+ContactSchema.methods.checkAuth = function (id) {
     if(this.userId === id) {
         return true
     } else { 

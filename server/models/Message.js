@@ -9,7 +9,7 @@ const MessageSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-MessageSchema.methods.validate = function (id) {
+MessageSchema.methods.checkAuth = function (id) {
     if(this.senderId === id) {
         return true
     } else { 
