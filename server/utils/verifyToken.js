@@ -26,6 +26,22 @@ const verifyTokenAndAuthorization = (req, res, next) => {
     })
 }
 
+const verifyTokenAndOwner = (req, res, next) => {
+    const authHeader = req.headers.id 
+    if(authHeader) {
+        const userId = authHeader.split(" ")[1];
+        verifyToken(req, res, () => {
+            if(req.data.id === userId || req.data.admin) {
+                next();
+            } else {
+                return res.status(403).json({ message: "You are not allowed to do that" })
+            }
+        })
+    } else {
+        return res.status(401).json({ message: "invalid user id"})
+    }
+}
+
 const verifyTokenAndAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if(req.data.admin) {
@@ -36,4 +52,4 @@ const verifyTokenAndAdmin = (req, res, next) => {
     })
 }
 
-module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin }
+module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndOwner, verifyTokenAndAdmin }
