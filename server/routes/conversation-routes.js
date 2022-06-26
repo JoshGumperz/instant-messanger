@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Conversation = require('../models/Conversation');
-const { verifyTokenAndAdmin, verifyToken } = require('../utils/verifyToken');
+const { verifyTokenAndAdmin, verifyToken, verifyTokenAndOwner } = require('../utils/verifyToken');
 
 // CREATE NEW CONVERSATION -> /API/CONVERSATION/
 router.post("/", verifyToken, async (req, res) => {
@@ -51,21 +51,15 @@ router.get('/:userId', verifyToken, async (req, res) => {
 // EDIT CONVERSATION -> /API/CONVERSATION/:id
 router.put('/:id', verifyToken, async (req, res) => {
     try {
-        const authId = req.headers.id
-        if(authId) {
-            const userId = authId.split(" ")[1];
-            const conversation = await Conversation.findById(req.params.id) 
-            if (conversation.checkAccess(userId)) {
-                const updatedConversation = await conversation.update({
-                    $set: req.body
-                }, {new: true})
-                return res.status(200).json({ message: "conversation updated" });
-            } else {
-                console.log(conversation)
-                return res.status(403).json({ message: "you are not allowed to do that"})
-            }
+        const conversation = await Conversation.findById(req.params.id) 
+        const access = verifyTokenAndOwner(req, conversation)
+        if (access) {
+            await conversation.update({
+                $set: req.body
+            }, {new: true})
+            return res.status(200).json({ message: "conversation updated" });
         } else {
-            return res.status(400).json({ message: "no id provided" })
+            return res.status(403).json({ message: "you are not allowed to do that"})
         }
     } catch (err) {
         console.log(err);

@@ -8,4 +8,12 @@ const ContactSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+MessageSchema.methods.validate = function (id) {
+    if(this.userId === id) {
+        return true
+    } else { 
+        return false
+    }
+}
+
 module.exports = mongoose.model("Contact", ContactSchema)

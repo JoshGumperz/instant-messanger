@@ -8,7 +8,7 @@ const ConversationSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-ConversationSchema.methods.checkAccess = function (id) {
+ConversationSchema.methods.validate = function (id) {
     if(this.members.includes(id)) {
         return true
     } else { 

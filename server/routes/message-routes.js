@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Message = require('../models/message');
-const { verifyTokenAndAdmin, verifyToken, verifyTokenAndOwner } = require('../utils/verifyToken');
+const { verifyTokenAndAdmin, verifyToken, getToken, verifyTokenAndOwner } = require('../utils/verifyToken');
 
 // GET ALL MESSAGES BY USER ID -> /API/MESSAGE/FIND/:userId
 router.get('find/user/:userId', verifyTokenAndAdmin, async (req, res) => {
@@ -54,23 +54,35 @@ router.post("/", verifyToken, async (req, res) => {
 })
 
 // EDIT MESSAGE -> /API/MESSAGE/:id
-router.put('/:id', verifyTokenAndOwner, async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
     try {
-        const updatedMessage = await Message.findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        }, {new: true})
-        res.status(200).json(updatedMessage);
+        const message = await Message.findById(req.params.id)
+        const isOwner = verifyTokenAndOwner(req, message)
+        if(isOwner) {
+            await message.updateOne({
+                $set: req.body
+            }, {new: true})
+            return res.status(200).json({ message: "message edited" });
+        } else {
+            return res.status(403).json({ message: "you are not allowed to do that" });
+        }
     } catch (err) {
-        console.log(err);
+        console.log(err)
         return res.status(500).json(err);  
     }
 })
 
 // // DELETE MESSAGE -> /API/MESSAGE/:id
-router.delete('/:id', verifyTokenAndOwner, async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
     try {
-        await Message.findByIdAndDelete(req.params.id)
-        res.status(200).json({message: "message deleted successfully"})
+        const message = await Message.findById(req.params.id)
+        const isOwner = verifyTokenAndOwner(req, message)
+        if(isOwner) {
+            await message.deleteOne()
+            return res.status(200).json({message: "message deleted successfully"})
+        } else {
+            return res.status(403).json({ message: "you are not allowed to do that" });
+        }
     } catch (err) {
         console.log(err);
         return res.status(500).json(err);  
