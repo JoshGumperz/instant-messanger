@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const ConversationSchema = new mongoose.Schema(
     {
         members: { type: Array, required: true },
-        lastMessage: { type: String, required: true }
     },
     { timestamps: true }
 );

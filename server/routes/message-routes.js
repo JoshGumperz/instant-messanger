@@ -13,7 +13,7 @@ router.get('find/user/:userId', verifyTokenAndAdmin, async (req, res) => {
 })
 
 // GET MESSAGE BY ID -> /API/MESSAGE/FIND/:id
-router.get('/find/:id', verifyTokenAndAdmin, async (req, res) => {
+router.get('/find/id/:id', verifyTokenAndAdmin, async (req, res) => {
     try {
         const message =  await Message.findById(req.params.id)
         res.status(200).json(message)
@@ -27,6 +27,16 @@ router.get('/find', verifyTokenAndAdmin, async (req, res) => {
     try {
         const messages =  await Message.find();
         res.status(200).json(messages)
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+// GET MOST RECENT MESSAGE IN A CONVERSATION -> /API/MESSAGE/:conversationId 
+router.get('/find/:conversationId', verifyToken, async (req, res) => {
+    try {
+        const message =  await Message.find({conversationId: req.params.conversationId}).sort([['createdAt', -1]]).limit(1);
+        res.status(200).json(message)
     } catch (err) {
         return res.status(500).json(err);
     }
