@@ -1,8 +1,14 @@
 import React from 'react'
+import "./Navbar.css"
 
-function Navbar() {
+
+function Navbar({ toggleSidebar }) {
   return (
-    <div>Navbar</div>
+    <>
+        <header className='navbar-nav'>
+            nav
+        </header>
+    </>
   )
 }
 
