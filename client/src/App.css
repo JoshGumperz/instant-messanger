@@ -1,7 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Raleway:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Raleway&family=Varela+Round&display=swap');
 *, ::before, ::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+:root {
+  --navbar-background-color: rgb(31, 167, 151);
 }

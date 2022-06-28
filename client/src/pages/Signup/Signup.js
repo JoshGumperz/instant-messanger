@@ -1,11 +1,11 @@
 import React from 'react'
 import LoginBox from '../../components/LoginBox/LoginBox'
-import './Login.css'
+import './Signup.css'
 
 function Login() {
   return (
-    <div className='login-container'>
-      <LoginBox loginOrSignup={'login'}/>
+    <div className='signup-container'>
+        <LoginBox loginOrSignup={'signup'}/>
     </div>
   )
 }

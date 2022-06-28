@@ -1,5 +1,5 @@
 .navbar-nav {
-    background: rgb(80, 90, 100);
+    background: var(--navbar-background-color);
     height: 2em;
     display: flex;
     justify-content: center;
@@ -26,7 +26,7 @@
     color: #fff;
     justify-self: flex-start;
     font-size: 2rem;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Varela Round', sans-serif;
     display: flex;
     align-items: center;
     margin-left: 2rem;
@@ -69,6 +69,10 @@
 }
 
 @media screen and (max-width: 500px) {
+    .navbar-navContainer {
+        padding: 0;
+    }
+
     .navbar-nav {
         font-size: 1.5rem;
     }
@@ -79,7 +83,7 @@
 
     .navbar-profileIcon {
         font-size: 1.7rem;
-        margin-right: 0.5rem;
+        margin-right: 2.5rem;
     }
 
     .navbar-navLink {
@@ -88,10 +92,6 @@
 }
 
 @media screen and (max-width: 300px) {
-    .navbar-navContainer {
-        padding: 0;
-    }
-
     .navbar-nav {
         font-size: 1rem;
     }
@@ -102,7 +102,6 @@
 
     .navbar-profileIcon {
         font-size: 1.1rem;
-        margin-right: 2.5rem;
     }
 
     .navbar-navLink {
