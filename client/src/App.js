@@ -10,7 +10,7 @@ import './App.css';
 function App() {
   return (
     <div>
-      <Navbar toggleSidebar={false}/>
+      <Navbar/>
       <Switch>
           <Route exact path={'/'} component={Home} />
           <Route exact path={'/login'} component={Login}/>
