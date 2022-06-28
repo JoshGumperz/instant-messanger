@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Raleway&family=Varela+Round&display=swap');
+
 *, ::before, ::after {
   box-sizing: border-box;
   margin: 0;
@@ -8,4 +9,17 @@
 
 :root {
   --navbar-background-color: rgb(31, 167, 151);
+}
+
+body {
+  background-color: rgb(251, 246, 237);
+}
+
+.app-background {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  background-image: url(../public/assets/images/dot-grid.webp);
+  opacity: 0.8;
 }

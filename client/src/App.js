@@ -10,7 +10,8 @@ import './App.css';
 
 function App() {
   return (
-    <div>
+    <div className='app-main'>
+      <div className='app-background'></div>
       <Navbar/>
       <Switch>
           <Route exact path={'/'} component={Home} />

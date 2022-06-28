@@ -1,5 +1,5 @@
 .navbar-nav {
-    background: var(--navbar-background-color);
+    background: #fff;
     height: 2em;
     display: flex;
     justify-content: center;
@@ -10,6 +10,7 @@
     left: 0;
     z-index: 10;
     width: 100vw;
+    border-bottom: 3px solid var(--navbar-background-color);
 }  
 
 .navbar-navContainer {
@@ -23,7 +24,7 @@
 }
 
 .navbar-navLogo {
-    color: #fff;
+    color: var(--navbar-background-color);
     justify-self: flex-start;
     font-size: 2rem;
     font-family: 'Varela Round', sans-serif;
@@ -47,7 +48,7 @@
 }
 
 .navbar-navLink {
-    color: #fff;
+    color: var(--navbar-background-color);
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -65,7 +66,11 @@
 }
 
 .navbar-profileIcon {
-    font-size: 2.7rem;
+    transform: scale(1.1);
+}
+
+.navbar-profileIcon:hover {
+    transform: scale(1.2);
 }
 
 @media screen and (max-width: 500px) {
