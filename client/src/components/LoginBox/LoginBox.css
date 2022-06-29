@@ -49,11 +49,12 @@
 }
 
 .loginbox-input:hover {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(233, 233, 233);
 }
 
 .loginbox-input:focus {
-    background-color: rgb(211, 211, 211);
+    /* background-color: rgb(211, 211, 211); */
+    background-color: rgb(220, 220, 220);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -103,6 +104,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.loginbox-link-text {
+    color: rgb(144, 144, 144);
 }
 
 .loginbox-link {
