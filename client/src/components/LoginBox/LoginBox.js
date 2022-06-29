@@ -50,7 +50,7 @@ function LoginBox({loginOrSignup}) {
                 <input type={showPassword ? 'text' : 'password'} className='loginbox-input' placeholder='enter password' value={password} required={true} onChange={(e) => {setPassword(e.target.value)}}/>
             </div>
             <div className="loginbox-checkbox-container">
-              <label className="loginbox-checkbox-label">Show Password: </label>
+              <label className="loginbox-label">Show Password: </label>
               <input className="loginbox-checkbox" type={'checkbox'} value={showPassword} checked={showPassword} onChange={() => {setShowPassword(!showPassword)}}/>
             </div>
             <div className="loginbox-btnContainer">
