@@ -5,13 +5,8 @@ const loginCall = async (username, password, validEmail) => {
         body: JSON.stringify(bodyToSend),
         headers: { 'Content-Type': 'application/json' },
     });
-    if(response.ok) {
-        const json = await response.json();
-        console.log(json)
-    } else {
-        const json = await response.json();
-        console.log(json)
-    }
+    const json = await response.json()
+    return json
 }
 
 const signupCall = async (email, username, password) => {
@@ -21,12 +16,13 @@ const signupCall = async (email, username, password) => {
         body: JSON.stringify(bodyToSend),
         headers: { 'Content-Type': 'application/json' },
     });
+    const json = await response.json()
     if(response.ok) {
-        const json = await response.json();
-        console.log(json)
+        const obj = {...json, ok: true}
+        console.log(obj)
+        return obj
     } else {
-        const json = await response.json();
-        console.log(json)
+        return {...json, ok: false}
     }
 }
 

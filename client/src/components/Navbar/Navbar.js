@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom'
 import "./Navbar.css"
 
 
-function Navbar() {
+function Navbar({ userLoggedIn }) {
+  // console.log('userLoggedIn from navbar:', userLoggedIn)
   return (
     <>
         <header className='navbar-nav'>
            <div className='navbar-navContainer'>
               <h3 className='navbar-navLogo'>InstantMessenger</h3>
+              {userLoggedIn ? 
               <ul className='navbar-navList'>
                 <li className='navbar-navItem'>
                   <Link className='navbar-navLink'to={'/'}><IoHome className='navbar-navIcon navbar-homeIcon'/></Link>
@@ -17,7 +19,8 @@ function Navbar() {
                 <li className='navbar-navItem'>
                   <Link className='navbar-navLink' to={'/login'}><IoPersonCircle className='navbar-navIcon navbar-profileIcon'/></Link>
                 </li>
-              </ul>
+              </ul> 
+              : null}
            </div>
         </header>
     </>

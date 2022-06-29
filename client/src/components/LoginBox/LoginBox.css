@@ -16,6 +16,10 @@
     color: rgb(144, 144, 144);
 }
 
+.loginbox-err {
+    color: rgb(198, 0, 0);
+}
+
 .loginbox-form {
     margin-top: 1em;
     width: 100%;
@@ -56,6 +60,11 @@
 .loginbox-label {
     font-weight: 600;
     color: rgb(144, 144, 144);
+}
+
+.loginbox-checkbox {
+    position: relative;
+    top: 0.1em; 
 }
 
 .loginbox-btnContainer {
