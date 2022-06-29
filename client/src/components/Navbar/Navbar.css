@@ -11,6 +11,7 @@
     z-index: 10;
     width: 100vw;
     border-bottom: 3px solid var(--navbar-background-color);
+    overflow: visible;
 }  
 
 .navbar-navContainer {
@@ -32,6 +33,11 @@
     align-items: center;
     margin-left: 2rem;
     text-decoration: none;
+}
+
+.navbar-listContainer {
+    overflow: visible;
+    position: relative;
 }
 
 .navbar-navList {
