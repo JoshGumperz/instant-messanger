@@ -5,15 +5,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* overflow: hidden; */
 }
+
 
 :root {
   --navbar-background-color: rgb(31, 167, 151);
 }
 
 body {
-  background-color: rgb(255, 244, 225);
+  background-color: rgb(255, 248, 237);
+  overflow: hidden !important;
 }
 
 .app-background {

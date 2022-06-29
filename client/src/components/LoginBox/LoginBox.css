@@ -8,7 +8,7 @@
     padding: 1rem;
     font-family: 'Poppins', sans-serif;
     border:1px solid rgba(77, 75, 75, 0.144);
-    box-shadow: rgba(0, 0, 0, 0.226) 0px 5px 15px;   
+    box-shadow: rgba(0, 0, 0, 0.226) 0px 5px 15px;
 }
 
 .loginbox-header {
@@ -23,14 +23,12 @@
 .loginbox-form {
     margin-top: 1em;
     width: 100%;
-    overflow: visible;
 }
 
 .loginbox-inputContainer {
     margin: 1em 0 1.5em 0;
     display: flex;
     flex-direction: column;
-    overflow: visible;
 }
 
 .loginbox-input {
@@ -74,7 +72,6 @@
     align-items: center;
     justify-content: center;
     margin: 1.5em 0 1.5em 0;
-    overflow: visible;
 }
 
 .loginbox-btn {
