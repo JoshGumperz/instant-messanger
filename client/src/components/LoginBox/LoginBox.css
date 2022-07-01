@@ -78,7 +78,7 @@
     width: 10rem;
     height: 3.5rem;
     border-radius: 1.3rem;
-    background-color: var(--navbar-background-color);
+    background-color: var(--main-color);
     color: #fff;
     border: none;
     outline: none;
@@ -88,12 +88,12 @@
     font-size: 1.5rem;
     font-weight: 600;
     transition: 0.3s ease-in-out;
-    border: solid 2px var(--navbar-background-color);
+    border: solid 2px var(--main-color);
 }
 
 .loginbox-btn:hover {
     background-color: #fff;
-    color: var(--navbar-background-color);
+    color: var(--main-color);
 }
 
 .loginbox-linkContainer {

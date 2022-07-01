@@ -1,0 +1,53 @@
+.contacts-container {
+    height: 100%;
+    width: 100%;
+    padding: 0.3rem 0.3rem 0.3rem 0.5rem;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(170, 170, 170);
+}
+
+.contacts-header {
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.contacts-inputContainer {
+    display: flex;
+    width: 100%;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.contacts-input {
+    width: 80%;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    border: 2px solid rgb(170, 170, 170);
+    outline: none;
+}
+
+.contacts-input:focus {
+    outline: none;
+    border: 2px solid rgb(130, 130, 130);
+}
+
+.contacts-boxContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0.5em 0 0.5em 0;
+}
+
+.contacts-addContactsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contacts-addContacts {
+    transition: 0.2s ease-in-out;
+}
+
+.contacts-addContacts:hover {
+    color: rgb(110, 110, 110);
+    cursor: pointer;
+}

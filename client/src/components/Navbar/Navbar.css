@@ -10,21 +10,21 @@
     left: 0;
     z-index: 10;
     width: 100vw;
-    border-bottom: 3px solid var(--navbar-background-color);
+    border-bottom: 3px solid var(--main-color);
 }  
 
 .navbar-navContainer {
     display: flex;
     justify-content: space-between;
-    height: 4em;
     z-index: 3;
+    height: 100%;
     width: 100%;
     padding: 0 2rem;
     max-width: 1500px;
 }
 
 .navbar-navLogo {
-    color: var(--navbar-background-color);
+    color: var(--main-color);
     justify-self: flex-start;
     font-size: 2rem;
     font-family: 'Varela Round', sans-serif;
@@ -48,7 +48,7 @@
 }
 
 .navbar-navLink {
-    color: var(--navbar-background-color);
+    color: var(--main-color);
     display: flex;
     align-items: center;
     text-decoration: none;

@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Raleway&family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&family=Poppins&family=Raleway&family=Roboto&family=Varela+Round&display=swap');
 
 *, ::before, ::after {
   box-sizing: border-box;
@@ -9,18 +8,23 @@
 
 
 :root {
-  --navbar-background-color: rgb(31, 167, 151);
+  --main-color: rgb(31, 167, 151);
+  --main-color-hover: rgb(37, 151, 137);
 }
 
 body {
   background-color: rgb(255, 248, 237);
-  overflow: hidden !important;
+  /* overflow: hidden !important; */
 }
 
 .app-background {
   position: fixed;
-  height: 100vh;
   width: 100vw;
+  min-height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: -1;
   background-image: url(../public/assets/images/dot-grid.webp);
   opacity: 0.7;

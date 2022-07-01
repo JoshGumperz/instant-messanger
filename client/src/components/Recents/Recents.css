@@ -1,0 +1,19 @@
+.recents-container {
+    height: 100%;
+    width: 100%;
+    padding: 0.3rem 0.3rem 0.3rem 0.5rem;
+}
+
+.recents-header {
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: rgb(180, 180, 180);
+    font-family: 'Roboto', sans-serif;
+}
+
+.recents-boxContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1em;
+}

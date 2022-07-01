@@ -1,0 +1,35 @@
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 5em);
+    width: 100vw;
+}
+
+.home-box {
+    display: flex;
+    width: 85%;
+    height: 85%;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 2px solid rgb(204, 204, 204);
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+}
+
+.home-wrapper {
+    height: 100%;
+}
+
+.home-main-container {
+    width: 60%;
+    
+}
+
+.home-recents-container, .home-contacts-container {
+    width: 20%;
+}
+
+.home-recents-container, .home-main-container {
+    border-right: 2px solid rgb(180, 180, 180);
+}
