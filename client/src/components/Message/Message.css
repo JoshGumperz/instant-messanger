@@ -1,0 +1,40 @@
+.message-container {
+    min-height: 3em;
+    max-width: 8em;
+    margin: 2rem 0 2rem 0;
+    width: fit-content;
+}
+
+.message-container.message-own {
+    align-self: flex-end;
+}
+
+.message-bubble {
+    max-width: 8em;
+    min-height: 2em;
+    width: fit-content;
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+
+.message-recieved {
+    background-color: rgb(225, 225, 225);
+}
+
+.message-sent {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.message-date {
+    color: rgb(175, 175, 175);
+    font-size: 0.7rem;
+    
+}
+
+.message-container.message-own .message-date {
+    text-align: right;
+}

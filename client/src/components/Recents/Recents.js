@@ -7,8 +7,8 @@ function Recents() {
     <div className='recents-container'>
         <h4 className='recents-header'>Recent Conversations</h4>
         <div className='recents-boxContainer'>
-            <UserBox conversation={{name: "Josh", lastMessage: "How are you?"}}/>
-            <UserBox conversation={{name: "Daniel", lastMessage: "What's up?"}}/>
+            <UserBox conversation={{name: "Mike", lastMessage: "How are you?"}}/>
+            <UserBox conversation={{name: "Lucas", lastMessage: "What's up?"}}/>
             <UserBox conversation={{name: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", lastMessage: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"}}/>
         </div>
     </div>
