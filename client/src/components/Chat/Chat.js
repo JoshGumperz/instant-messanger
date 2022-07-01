@@ -11,11 +11,11 @@ function Chat() {
           <Message message={{text: "I'm doing well", createdAt: "30 minutes ago"}} owner={true}/>
           <Message message={{text: "Hi", createdAt: "now"}} owner={false}/>
           <Message message={{text: "a", createdAt: "now"}} owner={false}/>
-          <Message message={{text: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", createdAt: "now"}} owner={true}/>
-          <Message message={{text: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", createdAt: "now"}} owner={false}/>
-          <Message message={{text: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", createdAt: "now"}} owner={true}/>
-          <Message message={{text: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", createdAt: "now"}} owner={false}/>
-          <Message message={{text: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", createdAt: "now"}} owner={true}/>
+          <Message message={{text: "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest", createdAt: "now"}} owner={true}/>
+          <Message message={{text: "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest", createdAt: "now"}} owner={false}/>
+          <Message message={{text: "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest", createdAt: "now"}} owner={true}/>
+          <Message message={{text: "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest", createdAt: "now"}} owner={false}/>
+          <Message message={{text: "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest", createdAt: "now"}} owner={true}/>
         </div>
         <div className='chat-formContainer'>
             <form className='chat-form'>
