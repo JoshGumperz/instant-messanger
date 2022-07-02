@@ -1,8 +1,8 @@
 .message-container {
     min-height: 3em;
-    max-width: 8em;
     margin: 2rem 0 2rem 0;
     width: fit-content;
+    max-width: 13em;
 }
 
 .message-container.message-own {
@@ -10,7 +10,7 @@
 }
 
 .message-bubble {
-    max-width: 8em;
+    max-width: 100%;
     min-height: 2em;
     width: fit-content;
     border-radius: 0.75rem;
@@ -32,7 +32,7 @@
 .message-date {
     color: rgb(175, 175, 175);
     font-size: 0.7rem;
-    
+    margin: 0 0.2rem 0 0.2rem;
 }
 
 .message-container.message-own .message-date {

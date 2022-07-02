@@ -21,11 +21,15 @@ function LoginBox({loginOrSignup}) {
     e.preventDefault()
     const validEmail = isValidEmail(email)
     const response = signup ? await signupCall(email, username, password) : await loginCall(email, password, validEmail)
-    if(response.accessToken) {
-      localStorage.setItem('JWTToken', response.accessToken);
+    if(response.ok) {
+      const json = await response.json()
+      console.log('success', json)
+      localStorage.setItem('JWTToken', json.accessToken);
       history.push('/')
     } else {
-      setErrMessage(response.message)
+      const json = await response.json()
+      console.log('fail', json)
+      setErrMessage(json.message)
     }
   }
 

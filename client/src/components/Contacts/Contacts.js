@@ -10,9 +10,9 @@ function Contacts() {
             <input type='text' placeholder='search contacts' className='contacts-input'/>
         </div>
         <div className='contacts-boxContainer'>
-            <UserBox conversation={{name: "Mike"}}/>
-            <UserBox conversation={{name: "Lucas"}}/>
-            <UserBox conversation={{name: "reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"}}/>
+            <UserBox conversation={{name: "Mike"}} contact={true}/>
+            <UserBox conversation={{name: "Lucas"}} contact={true}/>
+            <UserBox conversation={{name: "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest"}} contact={true}/>
         </div>
         <div className='contacts-addContactsContainer'>
             <p className='contacts-addContacts'>add contacts +</p>
