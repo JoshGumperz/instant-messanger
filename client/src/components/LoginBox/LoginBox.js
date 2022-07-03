@@ -1,6 +1,6 @@
 import {useState} from "react"
 import { Link, useHistory } from 'react-router-dom'
-import { loginCall, signupCall } from "../../utils/apiCalls"
+import { publicRequest } from "../../utils/apiCalls"
 import './LoginBox.css'
 
 function LoginBox({loginOrSignup}) {
@@ -20,7 +20,15 @@ function LoginBox({loginOrSignup}) {
   const handleFormSubmit = async (e) => {
     e.preventDefault()
     const validEmail = isValidEmail(email)
-    const response = signup ? await signupCall(email, username, password) : await loginCall(email, password, validEmail)
+    let response
+    if (signup) {
+      let bodyToSend = { email: email, username: username, password: password }
+      response = await publicRequest('/api/user/register', 'POST', JSON.stringify(bodyToSend))
+    } else {
+      let bodyToSend = validEmail ? { email: email, password: password } : { username: email, password: password }
+      response = await publicRequest('/api/user/login', 'POST', JSON.stringify(bodyToSend))
+    }
+    
     if(response.ok) {
       const json = await response.json()
       console.log('success', json)

@@ -4,6 +4,12 @@ function getToken() {
     return localStorage.getItem('JWTToken');
 }
 
+function getTokenAndDecode() {
+    const token =  getToken();
+    const decoded = decode(token);
+    return decoded
+}
+
 function loggedIn() {
     const token = getToken();
     // If there is a token and it's not expired, return `true`
@@ -25,4 +31,4 @@ function removeJSONWebToken() {
     localStorage.removeItem('JWTToken');
 }
 
-export { loggedIn, removeJSONWebToken, getToken };
+export { loggedIn, removeJSONWebToken, getToken, getTokenAndDecode };

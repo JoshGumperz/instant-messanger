@@ -1,30 +1,36 @@
 import { getToken } from "./auth";
 
-const loginCall = async (username, password, validEmail) => {
-    let bodyToSend = validEmail ? { email: username, password: password } : { username: username, password: password };
-    const response = await fetch('/api/user/login', {
-        method: 'POST',
-        body: JSON.stringify(bodyToSend),
-        headers: { 'Content-Type': 'application/json' },
-    });
-    return response
+const publicRequest = async (url, method, body) => {
+    try {
+        const response = await fetch(url, {
+            method: method,
+            body: body,
+            headers: { 'Content-Type': 'application/json' },
+        });
+        return response
+    } catch (err) {
+        console.log(err)
+        return err
+    }
+
 }
 
-const signupCall = async (email, username, password) => {
-    let bodyToSend = { email: email, username: username, password: password }
-    const response = await fetch('/api/user/register', {
-        method: 'POST',
-        body: JSON.stringify(bodyToSend),
-        headers: { 'Content-Type': 'application/json' },
-    });
-    return response
-}
+// const signupCall = async (email, username, password) => {
+//     let bodyToSend = { email: email, username: username, password: password }
+//     const response = await fetch('/api/user/register', {
+//         method: 'POST',
+//         body: JSON.stringify(bodyToSend),
+//         headers: { 'Content-Type': 'application/json' },
+//     });
+//     return response
+// }
 
-const logoutCall = async () => {
+const userRequest = async (url, method, body) => {
     const token = getToken()
     try {
-        const response = await fetch('/api/user/logout', {
-            method: 'POST',
+        const response = await fetch(url, {
+            method: method,
+            body: body,
             headers: {
                 'Content-Type': 'application/json',
                 'token': `Bearer ${token}`
@@ -38,4 +44,4 @@ const logoutCall = async () => {
     
 }
 
-export { loginCall, signupCall, logoutCall }
+export { publicRequest, userRequest }

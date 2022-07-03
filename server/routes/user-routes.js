@@ -139,5 +139,16 @@ router.get('/find/:id', verifyTokenAndAdmin, async (req, res) => {
     }
 })
 
+router.get('/find/username/:username', verifyToken, async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username }) 
+        const {password, ...others} = user._doc
+        res.status(200).json(others)
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+})
+
 
 module.exports = router;

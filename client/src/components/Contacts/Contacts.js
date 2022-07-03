@@ -1,8 +1,12 @@
 import React from 'react'
 import UserBox from '../UserBox/UserBox'
+import { getTokenAndDecode } from '../../utils/auth'
 import './Contacts.css'
 
+
 function Contacts() {
+  const user = getTokenAndDecode();
+  console.log(user)
   return (
     <div className='contacts-container'>
         <h4 className='contacts-header'>Contacts</h4>
