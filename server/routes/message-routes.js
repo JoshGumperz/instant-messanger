@@ -36,8 +36,10 @@ router.get('/find', verifyTokenAndAdmin, async (req, res) => {
 router.get('/find/:conversationId', verifyToken, async (req, res) => {
     try {
         const message =  await Message.find({conversationId: req.params.conversationId}).sort([['createdAt', -1]]).limit(1);
+        // const json = {...message[0]._doc}
         res.status(200).json(message)
     } catch (err) {
+        console.log(err)
         return res.status(500).json(err);
     }
 })

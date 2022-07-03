@@ -128,7 +128,7 @@ router.get('/find', verifyTokenAndAdmin, async (req, res) => {
 
 
 // GET SPECIFIC USER -> /API/USER/FIND/:id
-router.get('/find/:id', verifyTokenAndAdmin, async (req, res) => {
+router.get('/find/:id', verifyToken, async (req, res) => {
     try {
         const user = await User.findById(req.params.id) 
         const {password, ...others} = user._doc
