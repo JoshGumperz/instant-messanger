@@ -15,7 +15,7 @@ function Recents({ recents }) {
             return (
               <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} recent={true}/>
             )
-          }) : <p>You have no recent recents</p>}
+          }) : <p className='recents-p'>You have no recent recent conversations.</p>}
         </div>
     </div>
   )

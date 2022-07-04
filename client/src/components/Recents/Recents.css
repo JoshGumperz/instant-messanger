@@ -2,13 +2,13 @@
     height: 100%;
     width: 100%;
     padding: 0.3rem 0.3rem 0.3rem 0.5rem;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(170, 170, 170);
 }
 
 .recents-header {
     font-weight: 500;
     font-size: 1.3rem;
-    color: rgb(180, 180, 180);
-    font-family: 'Roboto', sans-serif;
 }
 
 .recents-boxContainer {
@@ -19,6 +19,10 @@
     padding-right: 0.5rem;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+.recents-p {
+    font-size: 1.3rem;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

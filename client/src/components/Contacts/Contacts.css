@@ -12,7 +12,9 @@
 }
 
 .contacts-inputContainer {
+    position: relative;
     display: flex;
+    align-items: center;
     width: 100%;
     margin: 1rem 0 0.5rem 0;
 }
@@ -30,6 +32,26 @@
     border: 2px solid rgb(130, 130, 130);
 }
 
+.contacts-searchBtn, .contacts-clearSearchBtn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.contacts-searchBtn:hover, .contacts-clearSearchBtn:hover {
+    color: rgb(110, 110, 110)
+}
+
+.contacts-clearSearchBtn {
+    position: absolute;
+    right: 22%;
+}
+
+.contacts-searchBtn {
+    margin-left: 0.5rem;
+}
+
+
 .contacts-boxContainer {
     width: 100%;
     max-height: 80%;
@@ -43,6 +65,12 @@
 /* Hide scrollbar for Chrome, Safari and Opera */
 .contacts-boxContainer::-webkit-scrollbar {
     display: none;
+}
+
+.contacts-p {
+    font-size: 1.3rem;
+    text-align: center;
+    margin: 1rem 0 1rem 0;
 }
 
 .contacts-addContactsContainer {

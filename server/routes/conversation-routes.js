@@ -5,10 +5,7 @@ const { verifyTokenAndAdmin, verifyToken, verifyTokenAndOwner } = require('../ut
 // CREATE NEW CONVERSATION -> /API/CONVERSATION/
 router.post("/", verifyToken, async (req, res) => {
     try {
-        const newConversation = new Conversation({
-            members: [req.body.user1, req.body.user2], 
-            lastMessage: req.body.lastMessage
-        })
+        const newConversation = new Conversation(req.body)
         const savedConversation = await newConversation.save();
         res.status(200).json(savedConversation);
     } catch (err) {
@@ -84,5 +81,15 @@ router.delete('/:id', verifyToken, async (req, res) => {
     }
 })
 
+// // DELETE CONVERSATIONS -> /API/CONVERSATION/
+router.delete('/', verifyTokenAndAdmin, async (req, res) => {
+    try {
+        await Conversation.deleteMany({})
+        return res.status(200).json({ message: "conversations deleted" })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);  
+    }
+})
 
 module.exports = router;
