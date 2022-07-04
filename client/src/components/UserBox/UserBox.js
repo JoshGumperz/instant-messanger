@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { userRequest } from '../../utils/apiCalls'
+import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import './UserBox.css'
 
-function UserBox({ contactId, conversationId }) {
+function UserBox({ contactId, conversationId, setContacts, recent}) {
   const [contact, setContact] = useState(null)
   const [message, setMessage] = useState(null)
 
@@ -33,21 +34,59 @@ function UserBox({ contactId, conversationId }) {
     }
   }
 
+  async function removeContact() {
+    const response = await userRequest(`api/conversation/${conversationId}`, 'DELETE', null) 
+    if(response.ok) {
+      const json = await response.json();
+      setContacts(conversationId);
+      console.log('success', json)
+      return
+    } else {
+      const json = await response.json();
+      console.log('error', json)
+      return
+    }
+  }
+
+  function popup() {
+    Confirm.show(
+      'Confirm',
+      'Are you sure you want to remove this contact?',
+      'Cancel',
+      'Yes',
+      () => {
+        return
+      },
+      () => {
+        removeContact();
+      },
+      {
+        titleColor:	'#1fa797',
+        okButtonBackground: '#a8a8a8',
+        cancelButtonBackground: '#1fa797'
+
+      },
+    );
+  }
+
   useEffect(() => {
     contactId && getContact();
-    conversationId && getLastMessage();
+    if (recent) {
+      conversationId && getLastMessage();
+    }
   }, [contactId, conversationId])
 
   return (
-    <div className={`userbox-container ${ conversationId ?  'userbox-recent' : 'userbox-contact'}`}>
+    <div className={`userbox-container ${ recent ?  'userbox-recent' : 'userbox-contact'}`}>
         <div className='userbox-name userbox-text'>{contact && contact.username}</div>
-        {conversationId && 
+        {recent && 
         <div className='userbox-lastMessage userbox-text'>{message && message}</div> 
         }
-        {!conversationId && 
+        {!recent && 
         <div className='userbox-removeBtnContainer'>
-          <p className='userbox-removeBtn'>remove</p>
-        </div>}
+          <p className='userbox-removeBtn' onClick={popup}>remove</p>
+        </div>
+        }
     </div>
   )
 }

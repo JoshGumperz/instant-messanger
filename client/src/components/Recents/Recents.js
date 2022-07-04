@@ -4,36 +4,18 @@ import { getTokenAndDecode } from '../../utils/auth'
 import UserBox from '../UserBox/UserBox'
 import './Recents.css'
 
-function Recents() {
-  const [conversations, setConversations] = useState([])
+function Recents({ recents }) {
   const user = getTokenAndDecode();
-  
-  useEffect(() => {
-    async function getConversations() {
-      const response = await userRequest(`/api/conversation/${user.id}`, 'GET', null)
-      if(response.ok) {
-        const json = await response.json()
-        setConversations(json)
-      } else {
-        const json = await response.json()
-        console.log(json)
-      }
-    }
-
-    getConversations();
-  }, [])
-
-  // console.log(conversations)
 
   return (
     <div className='recents-container'>
         <h4 className='recents-header'>Recent Conversations</h4>
         <div className='recents-boxContainer'>
-          {conversations.length ? conversations.map((c, index) => {
+          {recents.length ? recents.map((c, index) => {
             return (
-              <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id}/>
+              <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} recent={true}/>
             )
-          }) : <p>You have no recent conversations</p>}
+          }) : <p>You have no recent recents</p>}
         </div>
     </div>
   )

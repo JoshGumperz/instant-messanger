@@ -12,8 +12,9 @@
 }
 
 .recents-boxContainer {
-    display: flex;
-    flex-direction: column;
     width: 100%;
+    max-height: 90%;
+    overflow-y: scroll !important;
     margin-top: 1em;
+    padding-right: 0.5rem;
 }

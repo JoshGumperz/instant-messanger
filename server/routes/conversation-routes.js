@@ -68,10 +68,16 @@ router.put('/:id', verifyToken, async (req, res) => {
 })
 
 // // DELETE CONVERSATION -> /API/CONVERSATION/:id
-router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
     try {
-        await Conversation.findByIdAndDelete(req.params.id)
-        res.status(200).json({message: "conversation deleted successfully"})
+        const conversation = await Conversation.findById(req.params.id)
+        const isOwner = verifyTokenAndOwner(req, conversation)
+        if(isOwner) {
+            await conversation.deleteOne()
+            return res.status(200).json({ message: "conversation deleted successfully"})
+        } else {
+            return res.status(403).json({ message: "you are not allowed to do that" });
+        }
     } catch (err) {
         console.log(err);
         return res.status(500).json(err);  
