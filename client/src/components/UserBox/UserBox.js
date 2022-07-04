@@ -3,7 +3,7 @@ import { userRequest } from '../../utils/apiCalls'
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import './UserBox.css'
 
-function UserBox({ contactId, conversationId, setContacts, recent}) {
+function UserBox({ contactId, conversationId, removeContact, recent}) {
   const [contact, setContact] = useState(null)
   const [message, setMessage] = useState(null)
 
@@ -34,11 +34,11 @@ function UserBox({ contactId, conversationId, setContacts, recent}) {
     }
   }
 
-  async function removeContact() {
+  async function deleteContact() {
     const response = await userRequest(`api/conversation/${conversationId}`, 'DELETE', null) 
     if(response.ok) {
       const json = await response.json();
-      setContacts(conversationId);
+      removeContact(conversationId);
       console.log('success', json)
       return
     } else {
@@ -58,7 +58,7 @@ function UserBox({ contactId, conversationId, setContacts, recent}) {
         return
       },
       () => {
-        removeContact();
+        deleteContact();
       },
       {
         titleColor:	'#1fa797',

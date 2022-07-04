@@ -142,8 +142,12 @@ router.get('/find/:id', verifyToken, async (req, res) => {
 router.get('/find/username/:username', verifyToken, async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username }) 
-        const {password, ...others} = user._doc
-        res.status(200).json(others)
+        if(user) {
+            const {password, ...others} = user._doc
+            res.status(200).json(others)
+        } else {
+            res.status(404).json({ message: 'User Not Found' })
+        }
     } catch (err) {
         console.log(err);
         return res.status(500).json(err);

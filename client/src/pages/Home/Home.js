@@ -25,21 +25,25 @@ function Home() {
     getConversations();
   }, [])
 
-  const updateConversations = (id) =>  {
+  const removeConversation = (id) =>  {
     setConversations(conversations.filter((c) => c._id !== id))
+  }
+
+  const addConversation = (conversation) => {
+    setConversations([...conversations, conversation])
   }
 
   return (
     <div className='home-container'>
       <div className='home-box'>
         <div className='home-wrapper home-recents-container'>
-          <Recents recents={conversations} setRecents={updateConversations}/>
+          <Recents recents={conversations}/>
         </div>
         <div className='home-wrapper home-main-container'>
           <Chat/>
         </div>
         <div className='home-wrapper home-contacts-container'>
-          <Contacts contacts={conversations} setContacts={updateConversations}/>
+          <Contacts contacts={conversations} removeContact={removeConversation} addContact={addConversation}/>
         </div>
       </div>
     </div>
