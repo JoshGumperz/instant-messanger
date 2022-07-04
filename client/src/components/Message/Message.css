@@ -3,10 +3,21 @@
     margin: 2rem 0 2rem 0;
     width: fit-content;
     max-width: 13em;
+    display: flex;
+    flex-direction: column;
 }
 
-.message-container.message-own {
-    align-self: flex-end;
+.message-textWrapper, .message-textWrapperEdited {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    width: fit-content;
+    max-width: 13em;
+    justify-content: flex-start;
+}
+
+.message-textWrapperEdited {
+    max-width: 18em;
 }
 
 .message-bubble {
@@ -19,6 +30,14 @@
     word-wrap: break-word;
 }
 
+.editedBubble {
+    max-width: 80%;
+}
+
+.message-container.message-own .message-textWrapper {
+    align-self: flex-end;
+    justify-content: flex-end;
+}
 
 .message-recieved {
     background-color: rgb(225, 225, 225);
@@ -27,6 +46,20 @@
 .message-sent {
     background-color: var(--main-color);
     color: #fff;
+}
+
+.message-edited {
+    color: rgb(175, 175, 175);
+    font-style: italic;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    margin-left: 0.3rem;
+    width: 3.2em;
+}
+
+.message-container.message-own .message-edited {
+    margin-left: 0;
+    margin-right: 0.7em;
 }
 
 .message-date {

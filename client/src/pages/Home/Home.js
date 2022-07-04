@@ -8,7 +8,12 @@ import './Home.css'
 
 function Home() {
   const [conversations, setConversations] = useState([])
+  const [currentChat, setCurrentChat] = useState(null)
   const user = getTokenAndDecode();
+
+  const openChat = (chat) => {
+    setCurrentChat(chat)
+  }
   
   useEffect(() => {
     async function getConversations() {
@@ -37,13 +42,16 @@ function Home() {
     <div className='home-container'>
       <div className='home-box'>
         <div className='home-wrapper home-recents-container'>
-          <Recents recents={conversations}/>
+          <Recents recents={conversations} openChat={openChat}/>
         </div>
         <div className='home-wrapper home-main-container'>
-          <Chat/>
+          { currentChat ? 
+            <Chat conversation={currentChat}/>
+            : <p className='home-p'>Open a conversation to start a chat.</p> 
+          }
         </div>
         <div className='home-wrapper home-contacts-container'>
-          <Contacts contacts={conversations} removeContact={removeConversation} addContact={addConversation}/>
+          <Contacts contacts={conversations} openChat={openChat} removeContact={removeConversation} addContact={addConversation}/>
         </div>
       </div>
     </div>

@@ -61,6 +61,7 @@ router.post("/", verifyToken, async (req, res) => {
         const savedmessage = await newMessage.save();
         res.status(200).json(savedmessage);
     } catch (err) {
+        console.log(err)
         return res.status(500).json(err);
     }
 })

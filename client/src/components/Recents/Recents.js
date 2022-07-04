@@ -4,7 +4,7 @@ import { getTokenAndDecode } from '../../utils/auth'
 import UserBox from '../UserBox/UserBox'
 import './Recents.css'
 
-function Recents({ recents }) {
+function Recents({ recents, openChat }) {
   const user = getTokenAndDecode();
 
   return (
@@ -13,7 +13,9 @@ function Recents({ recents }) {
         <div className='recents-boxContainer'>
           {recents.length ? recents.map((c, index) => {
             return (
-              <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} recent={true}/>
+              <div onClick={() => {openChat(c)}}>
+                <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} recent={true}/>
+              </div>
             )
           }) : <p className='recents-p'>You have no recent recent conversations.</p>}
         </div>

@@ -7,7 +7,7 @@ import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import './Contacts.css'
 
-function Contacts({ contacts, removeContact, addContact }) {
+function Contacts({ contacts, openChat, removeContact, addContact }) {
   const user = getTokenAndDecode();
   const [search, setSearch] = useState('')
   const [searchedContacts, setSearchedContacts] = useState(null)
@@ -91,11 +91,15 @@ function Contacts({ contacts, removeContact, addContact }) {
         <div className='contacts-boxContainer'>
           {searchedContacts === null ? contacts.length ? contacts.map((c, index) => {
               return (
-                <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
+                <div onClick={() => {openChat(c)}}>
+                  <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
+                </div>
               )
             }) : <p className='contacts-p'>You have no contacts.</p> : searchedContacts.length ? searchedContacts.map((c, index) => {
               return (
-                <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
+                <div  onClick={() => {openChat(c)}}>
+                  <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
+                </div>
               )
             }) : <p className='contacts-p'>No contact with that username found.</p> }
         </div>

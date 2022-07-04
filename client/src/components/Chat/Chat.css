@@ -17,6 +17,10 @@
     overflow-y: scroll;
 }
 
+.chat-messageWrapperOwn {
+    align-self: flex-end;
+}
+
 .chat-formContainer {
     display: flex;
     align-items: flex-end;
