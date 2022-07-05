@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef   } from 'react'
 import { getTokenAndDecode } from '../../utils/auth'
 import { userRequest } from '../../utils/apiCalls'
+import { io } from "socket.io-client"
 import Chat from '../../components/Chat/Chat'
 import Contacts from '../../components/Contacts/Contacts'
 import Recents from '../../components/Recents/Recents'
@@ -10,7 +11,15 @@ function Home() {
   const [conversations, setConversations] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [messageSent, setMessageSent] = useState(0)
+  const socket = useRef(io('ws://localhost:8000'))
   const user = getTokenAndDecode();
+
+  useEffect(() => {
+    socket.current.emit('userConnect', user.id);
+    socket.current.on('getUsers', users=>{
+      console.log("users from socket server:", users)
+    })
+  }, [user])
 
   const incrementMessageSent = () => {
     setMessageSent(messageSent + 1)
