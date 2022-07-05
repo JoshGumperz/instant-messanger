@@ -1,6 +1,6 @@
 .message-container {
     min-height: 3em;
-    margin: 2rem 0 2rem 0;
+    margin: 0.5rem 0 0.5rem 0;
     width: fit-content;
     max-width: 13em;
     display: flex;
@@ -10,7 +10,7 @@
 .message-textWrapper, .message-textWrapperEdited {
     display: flex;
     flex-direction: row;
-    align-self: center;
+    align-self: flex-start;
     width: fit-content;
     max-width: 13em;
     justify-content: flex-start;

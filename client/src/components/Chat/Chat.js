@@ -9,6 +9,20 @@ function Chat({conversation}) {
   const user = getTokenAndDecode();
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
+  const [editing, setEditing] = useState(false)
+  const [targettedMessage, setTargettedMessage] = useState(null)
+
+  const removeMessage =  (id) => {
+    setMessages(messages.filter((m) => m._id !== id))
+  }
+
+  const targetMessage = (messageId, messageText) => {
+    setTargettedMessage({id: messageId, text: messageText})
+  }
+
+  const toggleEdit = () => {
+    setEditing(true)
+  }
 
   const getMessages = async () => {
     try {
@@ -40,11 +54,41 @@ function Chat({conversation}) {
     }
   }
 
+  const editMessage = async () => {
+    try {
+      let bodyToSend = { text: targettedMessage.text, edited: true }
+      const response = await userRequest(`/api/message/${targettedMessage.id}`, 'PUT', JSON.stringify(bodyToSend)) 
+      if(response.ok) {
+        const json =  await response.json();
+        const updatedMessages = messages.map(obj => {
+          // 👇️ if id equals 2, update country property
+          if (obj._id === targettedMessage.id) {
+            return {...obj, text: targettedMessage.text, edited: true};
+          }
+          // 👇️ otherwise return object as is
+          return obj;
+        });
+        setMessages(updatedMessages)
+        setTargettedMessage(null)
+      } 
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const onEnterPress = (e) => {
     if(e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
-      return sendMessage();
+      return targettedMessage ? editMessage() : sendMessage();
     }
+  }
+
+  const onChangeNewMessage = (e) => {
+    setNewMessage(e.target.value)
+  }
+
+  const onChangeEditMessage = (e) => {
+    setTargettedMessage({...targettedMessage, text: e.target.value})
   }
 
   return (
@@ -53,15 +97,15 @@ function Chat({conversation}) {
           { messages.length ? messages.map((m, index) => {
             return (
               <div className={m.senderId === user.id ? 'chat-messageWrapperOwn' : 'chat-messageWrapper'}>
-                <Message message={m} owner={m.senderId === user.id}/>
+                <Message message={m} owner={m.senderId === user.id} targetMessage={targetMessage} removeMessage={removeMessage} toggleEdit={toggleEdit}/>
               </div>
             )
           }) : <p className='chat-p'>There are no messages in this conversation yet.</p>}
         </div>
         <div className='chat-formContainer'>
             <form className='chat-form'>
-                <textarea className='chat-input' placeholder='send a message...' value={newMessage} onChange={(e) => {setNewMessage(e.target.value)}} onKeyDown={onEnterPress}></textarea>
-                <IoSendSharp className='chat-btn' onClick={sendMessage}/>
+                <textarea className='chat-input' placeholder='send a message...' value={targettedMessage ? targettedMessage.text : newMessage} onChange={targettedMessage ? onChangeEditMessage : onChangeNewMessage} onKeyDown={onEnterPress}></textarea>
+                <IoSendSharp className='chat-btn' onClick={ targettedMessage ? editMessage : sendMessage}/>
             </form>
         </div>
     </div>

@@ -1,0 +1,43 @@
+.popup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5em;
+    position: absolute;
+    z-index: 998;
+    background-color: #fff;
+    top: 2em;
+    left: -1em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.popup-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-listItem {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s ease-in-out;
+}
+
+.popup-listItem:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+.popup-listOption {
+    text-decoration: none;
+    color: rgb(57, 57, 57);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    padding: 0.2em;
+    cursor: pointer;
+}
