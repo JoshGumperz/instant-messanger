@@ -5,12 +5,12 @@ import { getTokenAndDecode } from '../../utils/auth'
 import Message from '../Message/Message'
 import './Chat.css'
 
-function Chat({conversation}) {
+function Chat({conversation, incrementMessageSent}) {
   const user = getTokenAndDecode();
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
-  const [editing, setEditing] = useState(false)
   const [targettedMessage, setTargettedMessage] = useState(null)
+  const scrollRef = useRef();
 
   const removeMessage =  (id) => {
     setMessages(messages.filter((m) => m._id !== id))
@@ -18,10 +18,6 @@ function Chat({conversation}) {
 
   const targetMessage = (messageId, messageText) => {
     setTargettedMessage({id: messageId, text: messageText})
-  }
-
-  const toggleEdit = () => {
-    setEditing(true)
   }
 
   const getMessages = async () => {
@@ -41,6 +37,10 @@ function Chat({conversation}) {
     conversation && getMessages();
   }, [conversation])
 
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth"})
+  }, [messages])
+
   const sendMessage = async () => {
     try {
       let bodyToSend = { senderId: user.id, text: newMessage, conversationId: conversation._id }
@@ -48,6 +48,8 @@ function Chat({conversation}) {
       if(response.ok) {
         const json =  await response.json();
         setMessages([...messages, json])
+        setNewMessage('')
+        incrementMessageSent();
       } 
     } catch (err) {
       console.log(err)
@@ -59,13 +61,10 @@ function Chat({conversation}) {
       let bodyToSend = { text: targettedMessage.text, edited: true }
       const response = await userRequest(`/api/message/${targettedMessage.id}`, 'PUT', JSON.stringify(bodyToSend)) 
       if(response.ok) {
-        const json =  await response.json();
         const updatedMessages = messages.map(obj => {
-          // 👇️ if id equals 2, update country property
           if (obj._id === targettedMessage.id) {
             return {...obj, text: targettedMessage.text, edited: true};
           }
-          // 👇️ otherwise return object as is
           return obj;
         });
         setMessages(updatedMessages)
@@ -96,8 +95,8 @@ function Chat({conversation}) {
         <div className='chat-messagesContainer'>
           { messages.length ? messages.map((m, index) => {
             return (
-              <div className={m.senderId === user.id ? 'chat-messageWrapperOwn' : 'chat-messageWrapper'}>
-                <Message message={m} owner={m.senderId === user.id} targetMessage={targetMessage} removeMessage={removeMessage} toggleEdit={toggleEdit}/>
+              <div className={m.senderId === user.id ? 'chat-messageWrapperOwn' : 'chat-messageWrapper'} ref={scrollRef}>
+                <Message message={m} owner={m.senderId === user.id} targetMessage={targetMessage} removeMessage={removeMessage}/>
               </div>
             )
           }) : <p className='chat-p'>There are no messages in this conversation yet.</p>}

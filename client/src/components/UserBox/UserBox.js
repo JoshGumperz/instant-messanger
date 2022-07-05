@@ -3,9 +3,10 @@ import { userRequest } from '../../utils/apiCalls'
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import './UserBox.css'
 
-function UserBox({ contactId, conversationId, removeContact, recent}) {
+function UserBox({ contactId, conversationId, removeContact, messageSent, recent}) {
   const [contact, setContact] = useState(null)
   const [message, setMessage] = useState(null)
+  const [hidden, setHidden] = useState(false)
 
 
   async function getContact() {
@@ -25,7 +26,12 @@ function UserBox({ contactId, conversationId, removeContact, recent}) {
     const response = await userRequest(`api/message/find/${conversationId}`, 'GET', null) 
     if(response.ok) {
       const json = await response.json();
-      json[0] && setMessage(json[0].text)
+      if(json[0]) {
+        setMessage(json[0].text)
+        setHidden(false)
+      } else {
+        setHidden(true)
+      }
       return
     } else {
       const json = await response.json();
@@ -76,8 +82,14 @@ function UserBox({ contactId, conversationId, removeContact, recent}) {
     }
   }, [contactId, conversationId])
 
+  useEffect(() => {
+    if(recent) {
+      conversationId && getLastMessage();
+    }
+  }, [messageSent])
+
   return (
-    <div className={`userbox-container ${ recent ?  'userbox-recent' : 'userbox-contact'}`}>
+    <div className={`userbox-container ${ recent ?  'userbox-recent' : 'userbox-contact'} ${hidden && 'userbox-hidden'}`}>
         <div className='userbox-name userbox-text'>{contact && contact.username}</div>
         {recent && 
         <div className='userbox-lastMessage userbox-text'>{message && message}</div> 

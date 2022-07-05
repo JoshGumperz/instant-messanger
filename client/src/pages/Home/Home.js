@@ -9,7 +9,12 @@ import './Home.css'
 function Home() {
   const [conversations, setConversations] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
+  const [messageSent, setMessageSent] = useState(0)
   const user = getTokenAndDecode();
+
+  const incrementMessageSent = () => {
+    setMessageSent(messageSent + 1)
+  }
 
   const openChat = (chat) => {
     setCurrentChat(chat)
@@ -42,11 +47,11 @@ function Home() {
     <div className='home-container'>
       <div className='home-box'>
         <div className='home-wrapper home-recents-container'>
-          <Recents recents={conversations} openChat={openChat}/>
+          <Recents recents={conversations} openChat={openChat} messageSent={messageSent}/>
         </div>
         <div className='home-wrapper home-main-container'>
           { currentChat ? 
-            <Chat conversation={currentChat}/>
+            <Chat conversation={currentChat} incrementMessageSent={incrementMessageSent}/>
             : <p className='home-p'>Open a conversation to start a chat.</p> 
           }
         </div>

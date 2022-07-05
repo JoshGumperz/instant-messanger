@@ -52,3 +52,6 @@
     color: rgb(100, 100, 100);
 }
 
+.userbox-hidden {
+    display: none;
+}

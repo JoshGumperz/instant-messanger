@@ -31,7 +31,6 @@ function LoginBox({loginOrSignup}) {
     
     if(response.ok) {
       const json = await response.json()
-      console.log('success', json)
       localStorage.setItem('JWTToken', json.accessToken);
       history.push('/')
     } else {

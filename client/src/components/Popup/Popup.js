@@ -3,12 +3,11 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 import { userRequest } from '../../utils/apiCalls';
 import './Popup.css'
 
-function Popup({ closePopup, targetMessage, toggleEdit, removeMessage, message, owner }) {
+function Popup({ closePopup, targetMessage, removeMessage, message }) {
   const ref = useDetectClickOutside({ onTriggered: closePopup}); 
   
   const onClickEdit = () => {
     targetMessage(message._id, message.text);
-    toggleEdit();
     closePopup();
   }
 
