@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require('path');
 const routes = require('./routes');
-const { route } = require("./routes");
 const app = express();
 
 

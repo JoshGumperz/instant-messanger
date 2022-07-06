@@ -5,12 +5,17 @@ import { getTokenAndDecode } from '../../utils/auth'
 import Message from '../Message/Message'
 import './Chat.css'
 
-function Chat({conversation, incrementMessageSent}) {
+function Chat({ conversation, sendMessageToSocket, arrivalMessage, clearArrivalMessage, updateLastMessageSent }) {
   const user = getTokenAndDecode();
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
   const [targettedMessage, setTargettedMessage] = useState(null)
   const scrollRef = useRef();
+
+  useEffect(() => {
+    arrivalMessage && conversation.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage])
+  }, [arrivalMessage, conversation])
 
   const removeMessage =  (id) => {
     setMessages(messages.filter((m) => m._id !== id))
@@ -39,9 +44,13 @@ function Chat({conversation, incrementMessageSent}) {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth"})
+    // clearArrivalMessage();
   }, [messages])
 
   const sendMessage = async () => {
+    const receiverId = conversation.members.find(member => member !== user.id);
+    sendMessageToSocket(user.id, receiverId, conversation._id, newMessage);
+  
     try {
       let bodyToSend = { senderId: user.id, text: newMessage, conversationId: conversation._id }
       const response = await userRequest(`/api/message`, 'POST', JSON.stringify(bodyToSend)) 
@@ -49,7 +58,7 @@ function Chat({conversation, incrementMessageSent}) {
         const json =  await response.json();
         setMessages([...messages, json])
         setNewMessage('')
-        incrementMessageSent();
+        updateLastMessageSent({conversationId: conversation._id, text: newMessage})
       } 
     } catch (err) {
       console.log(err)

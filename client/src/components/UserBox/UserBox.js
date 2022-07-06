@@ -3,42 +3,10 @@ import { userRequest } from '../../utils/apiCalls'
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import './UserBox.css'
 
-function UserBox({ contactId, conversationId, removeContact, messageSent, recent}) {
+function UserBox({ contactId, conversationId, removeContact, arrivalMessage, lastMessageSent, recent}) {
   const [contact, setContact] = useState(null)
   const [message, setMessage] = useState(null)
   const [hidden, setHidden] = useState(false)
-
-
-  async function getContact() {
-    const response = await userRequest(`/api/user/find/${contactId}`, 'GET', null) 
-    if(response.ok) {
-      const json =  await response.json();
-      setContact(json)
-      return
-    } else {
-      const json = await response.json();
-      console.log('error', json)
-      return
-    }
-  }
-
-  async function getLastMessage() {
-    const response = await userRequest(`api/message/find/${conversationId}`, 'GET', null) 
-    if(response.ok) {
-      const json = await response.json();
-      if(json[0]) {
-        setMessage(json[0].text)
-        setHidden(false)
-      } else {
-        setHidden(true)
-      }
-      return
-    } else {
-      const json = await response.json();
-      console.log('error', json)
-      return
-    }
-  }
 
   async function deleteContact() {
     const response = await userRequest(`api/conversation/${conversationId}`, 'DELETE', null) 
@@ -76,17 +44,54 @@ function UserBox({ contactId, conversationId, removeContact, messageSent, recent
   }
 
   useEffect(() => {
+    async function getContact() {
+      const response = await userRequest(`/api/user/find/${contactId}`, 'GET', null) 
+      if(response.ok) {
+        const json =  await response.json();
+        setContact(json)
+        return
+      } else {
+        const json = await response.json();
+        console.log('error', json)
+        return
+      }
+    }
+  
+    async function getLastMessage() {
+      const response = await userRequest(`api/message/find/${conversationId}`, 'GET', null) 
+      if(response.ok) {
+        const json = await response.json();
+        if(json[0]) {
+          setMessage(json[0].text)
+          setHidden(false)
+        } else {
+          setHidden(true)
+        }
+        return
+      } else {
+        const json = await response.json();
+        console.log('error', json)
+        return
+      }
+    }
+
     contactId && getContact();
     if (recent) {
       conversationId && getLastMessage();
     }
-  }, [contactId, conversationId])
+  }, [contactId, conversationId, recent])
 
   useEffect(() => {
     if(recent) {
-      conversationId && getLastMessage();
+      if (arrivalMessage?.conversationId === conversationId) {
+        setMessage(arrivalMessage.text)
+        setHidden(false)
+      } else if(lastMessageSent?.conversationId === conversationId) {
+        setMessage(lastMessageSent.text) 
+        setHidden(false)
+      }
     }
-  }, [messageSent])
+  }, [arrivalMessage, lastMessageSent, recent, conversationId])
 
   return (
     <div className={`userbox-container ${ recent ?  'userbox-recent' : 'userbox-contact'} ${hidden && 'userbox-hidden'}`}>

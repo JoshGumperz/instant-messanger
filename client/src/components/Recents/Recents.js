@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react'
-import { userRequest } from '../../utils/apiCalls'
 import { getTokenAndDecode } from '../../utils/auth'
 import UserBox from '../UserBox/UserBox'
 import './Recents.css'
 
-function Recents({ recents, openChat, messageSent }) {
+function Recents({ recents, openChat, arrivalMessage, lastMessageSent }) {
   const user = getTokenAndDecode();
 
   return (
@@ -14,7 +12,7 @@ function Recents({ recents, openChat, messageSent }) {
           {recents.length ? recents.map((c, index) => {
             return (
               <div onClick={() => {openChat(c)}}>
-                <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} messageSent={messageSent} recent={true}/>
+                <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} arrivalMessage={arrivalMessage} lastMessageSent={lastMessageSent} recent={true}/>
               </div>
             )
           }) : <p className='recents-p'>You have no recent recent conversations.</p>}
