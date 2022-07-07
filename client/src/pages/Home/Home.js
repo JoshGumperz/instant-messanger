@@ -40,6 +40,7 @@ function Home() {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
+        _id: data.messageId,
         conversationId: data.conversationId,
         createdAt: Date.now()
       })

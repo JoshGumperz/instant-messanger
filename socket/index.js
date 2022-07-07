@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const http = require('http');
 const { Server } = require('socket.io')
+const { uuid } = require('uuidv4')
 const cors = require('cors')
 
 app.use(cors());
@@ -38,6 +39,7 @@ io.on("connection", (socket) => {
         const user = getUser(receiverId);
         user && io.to(user.socketId).emit('getMessage', { 
             senderId,
+            messageId: uuid(),
             conversationId,
             text
         });

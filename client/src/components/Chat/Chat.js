@@ -12,6 +12,7 @@ function Chat({ conversation, sendMessageToSocket, arrivalMessage, clearArrivalM
   const [targettedMessage, setTargettedMessage] = useState(null)
   const scrollRef = useRef();
 
+
   useEffect(() => {
     arrivalMessage && conversation.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage])
