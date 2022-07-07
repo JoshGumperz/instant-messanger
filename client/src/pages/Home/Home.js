@@ -6,7 +6,6 @@ import Chat from '../../components/Chat/Chat'
 import Contacts from '../../components/Contacts/Contacts'
 import Recents from '../../components/Recents/Recents'
 import './Home.css'
-const socket = io.connect('http://localhost:8000')
 
 
 function Home() {
@@ -16,6 +15,7 @@ function Home() {
   const [modifyMessage, setModifyMessage] = useState(null)
   const [lastMessageSent, setLastMessageSent] = useState(null)
   const user = getTokenAndDecode();
+  const socket = io.connect('http://localhost:8000')
 
 
   const clearArrivalMessage = () => {
