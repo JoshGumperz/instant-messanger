@@ -7,13 +7,14 @@ import Contacts from '../../components/Contacts/Contacts'
 import Recents from '../../components/Recents/Recents'
 import './Home.css'
 const socket = io.connect('http://localhost:8000')
-const user = getTokenAndDecode();
+
 
 function Home() {
   const [conversations, setConversations] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const [lastMessageSent, setLastMessageSent] = useState(null)
+  const user = getTokenAndDecode();
 
 
   const clearArrivalMessage = () => {
@@ -32,7 +33,7 @@ function Home() {
     socket.on("userDisconnected", users=> {
       console.log('user disconnected:', users)
     })
-  }, [])
+  }, [user])
 
   useEffect(() => {
     socket.on("getMessage", data => {
