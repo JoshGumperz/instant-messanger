@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const http = require('http');
 const { Server } = require('socket.io')
-const { uuid } = require('uuidv4')
 const cors = require('cors')
 
 app.use(cors());
@@ -35,13 +34,30 @@ io.on("connection", (socket) => {
         io.emit("getUsers", users);
     });
 
-    socket.on('sendMessage', ({senderId, receiverId, conversationId, text}) => {
+    socket.on('sendMessage', ({senderId, receiverId, messageId, conversationId, text}) => {
         const user = getUser(receiverId);
         user && io.to(user.socketId).emit('getMessage', { 
             senderId,
-            messageId: uuid(),
+            messageId,
             conversationId,
             text
+        });
+    });
+
+    socket.on('editMessage', ({senderId, receiverId, messageId, text}) => {
+        const user = getUser(receiverId);
+        user && io.to(user.socketId).emit('messageEdited', { 
+            senderId,
+            messageId,
+            text
+        });
+    });
+
+    socket.on('deleteMessage', ({senderId, receiverId, messageId}) => {
+        const user = getUser(receiverId);
+        user && io.to(user.socketId).emit('messageDeleted', { 
+            senderId,
+            messageId,
         });
     });
 

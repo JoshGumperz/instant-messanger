@@ -4,7 +4,7 @@ import Popup from '../Popup/Popup'
 import './Message.css'
 
 
-function Message({ message, owner, targetMessage, removeMessage }) {
+function Message({ message, owner, targetMessage, deleteMessageInSocket, removeMessage,receiverId }) {
   const [openPopup, setOpenPopup] = useState(false)
   const [count, setCount] = useState(0)
 
@@ -23,7 +23,7 @@ function Message({ message, owner, targetMessage, removeMessage }) {
 
   return (
     <div className={`message-container ${owner && 'message-own'}`}>
-      { openPopup && <Popup closePopup={togglePopup} targetMessage={targetMessage} removeMessage={removeMessage} message={message} owner={owner}/> }
+      { openPopup && <Popup closePopup={togglePopup} targetMessage={targetMessage} deleteMessageInSocket={deleteMessageInSocket} removeMessage={removeMessage} message={message} receiverId={receiverId}/> }
         <div className={message.edited ? 'message-textWrapperEdited' : 'message-textWrapper'} onClick={() => { owner && setOpenPopup(true) }}>
           { message.edited && owner && <p className='message-edited'>(edited)</p> }
           <div className={`message-bubble ${owner ? 'message-sent' : 'message-recieved'} ${message.edited && 'editedBubble'}`}>{message.text}</div>  

@@ -5,18 +5,29 @@ import { getTokenAndDecode } from '../../utils/auth'
 import Message from '../Message/Message'
 import './Chat.css'
 
-function Chat({ conversation, sendMessageToSocket, arrivalMessage, clearArrivalMessage, updateLastMessageSent }) {
+function Chat({ conversation, sendMessageToSocket, editMessageInSocket, deleteMessageInSocket, modifyMessage, arrivalMessage, updateLastMessageSent }) {
   const user = getTokenAndDecode();
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
   const [targettedMessage, setTargettedMessage] = useState(null)
   const scrollRef = useRef();
+  const receiverId = conversation.members.find(member => member !== user.id);
 
 
   useEffect(() => {
     arrivalMessage && conversation.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage])
   }, [arrivalMessage, conversation])
+
+  useEffect(() => {
+    if(modifyMessage && conversation.members.includes(modifyMessage.sender)) {
+      if(modifyMessage.text) {
+        updateMessagesArr(modifyMessage)
+      } else {
+        setMessages(messages.filter((m) => m._id !== modifyMessage.id))
+      }
+    }
+  }, [modifyMessage, conversation])
 
   const removeMessage =  (id) => {
     setMessages(messages.filter((m) => m._id !== id))
@@ -45,18 +56,26 @@ function Chat({ conversation, sendMessageToSocket, arrivalMessage, clearArrivalM
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth"})
-    // clearArrivalMessage();
   }, [messages])
 
+  const updateMessagesArr = (message) => {
+
+    const updatedMessages = messages.map(obj => {
+      if (obj._id === message.id) {
+        return {...obj, text: message.text, edited: true};
+      }
+      return obj;
+    });
+    setMessages(updatedMessages)
+  } 
+
   const sendMessage = async () => {
-    const receiverId = conversation.members.find(member => member !== user.id);
-    sendMessageToSocket(user.id, receiverId, conversation._id, newMessage);
-  
     try {
       let bodyToSend = { senderId: user.id, text: newMessage, conversationId: conversation._id }
       const response = await userRequest(`/api/message`, 'POST', JSON.stringify(bodyToSend)) 
       if(response.ok) {
         const json =  await response.json();
+        sendMessageToSocket(user.id, receiverId, json._id, conversation._id, newMessage);
         setMessages([...messages, json])
         setNewMessage('')
         updateLastMessageSent({conversationId: conversation._id, text: newMessage})
@@ -67,18 +86,13 @@ function Chat({ conversation, sendMessageToSocket, arrivalMessage, clearArrivalM
   }
 
   const editMessage = async () => {
+    editMessageInSocket(user.id, receiverId, targettedMessage.id, targettedMessage.text)
     try {
       let bodyToSend = { text: targettedMessage.text, edited: true }
       const response = await userRequest(`/api/message/${targettedMessage.id}`, 'PUT', JSON.stringify(bodyToSend)) 
       if(response.ok) {
-        const updatedMessages = messages.map(obj => {
-          if (obj._id === targettedMessage.id) {
-            return {...obj, text: targettedMessage.text, edited: true};
-          }
-          return obj;
-        });
-        setMessages(updatedMessages)
-        setTargettedMessage(null)
+        updateMessagesArr(targettedMessage);
+        setTargettedMessage(null);
       } 
     } catch (err) {
       console.log(err)
@@ -106,7 +120,7 @@ function Chat({ conversation, sendMessageToSocket, arrivalMessage, clearArrivalM
           { messages.length ? messages.map((m, index) => {
             return (
               <div className={m.senderId === user.id ? 'chat-messageWrapperOwn' : 'chat-messageWrapper'} ref={scrollRef}>
-                <Message message={m} owner={m.senderId === user.id} targetMessage={targetMessage} removeMessage={removeMessage}/>
+                <Message message={m} owner={m.senderId === user.id} deleteMessageInSocket={deleteMessageInSocket} targetMessage={targetMessage} removeMessage={removeMessage} receiverId={receiverId}/>
               </div>
             )
           }) : <p className='chat-p'>There are no messages in this conversation yet.</p>}

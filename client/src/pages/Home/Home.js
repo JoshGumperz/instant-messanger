@@ -13,6 +13,7 @@ function Home() {
   const [conversations, setConversations] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [arrivalMessage, setArrivalMessage] = useState(null)
+  const [modifyMessage, setModifyMessage] = useState(null)
   const [lastMessageSent, setLastMessageSent] = useState(null)
   const user = getTokenAndDecode();
 
@@ -45,13 +46,42 @@ function Home() {
         createdAt: Date.now()
       })
     })
+
+    socket.on("messageEdited", data => {
+      setModifyMessage({
+        sender: data.senderId,
+        id: data.messageId,
+        text: data.text
+      })
+    })
+
+    socket.on("messageDeleted", data => {
+      setModifyMessage({
+        sender: data.senderId,
+        id: data.messageId,
+      })
+    })
   }, [])
 
-  const sendMessageToSocket = (senderId, receiverId, conversationId, text) => {
+  const sendMessageToSocket = (senderId, receiverId, messageId, conversationId, text) => {
     const messageObj = { 
-      senderId, receiverId, conversationId, text 
+      senderId, receiverId, messageId, conversationId, text 
     };
     socket.emit("sendMessage", messageObj);
+  };
+
+  const editMessageInSocket = (senderId, receiverId, messageId, text) => {
+    const messageObj = { 
+      senderId, receiverId, messageId, text 
+    };
+    socket.emit("editMessage", messageObj);
+  };
+
+  const deleteMessageInSocket = (senderId, receiverId, messageId) => {
+    const messageObj = { 
+      senderId, receiverId, messageId
+    };
+    socket.emit("deleteMessage", messageObj);
   };
 
   const openChat = (chat) => {
@@ -89,7 +119,7 @@ function Home() {
         </div>
         <div className='home-wrapper home-main-container'>
           { currentChat ? 
-            <Chat conversation={currentChat} sendMessageToSocket={sendMessageToSocket} arrivalMessage={arrivalMessage} clearArrivalMessage={clearArrivalMessage} updateLastMessageSent={updateLastMessageSent}/>
+            <Chat conversation={currentChat} sendMessageToSocket={sendMessageToSocket} editMessageInSocket={editMessageInSocket} deleteMessageInSocket={deleteMessageInSocket} arrivalMessage={arrivalMessage} modifyMessage={modifyMessage} updateLastMessageSent={updateLastMessageSent}/>
             : <p className='home-p'>Open a conversation to start a chat.</p> 
           }
         </div>

@@ -3,7 +3,7 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 import { userRequest } from '../../utils/apiCalls';
 import './Popup.css'
 
-function Popup({ closePopup, targetMessage, removeMessage, message }) {
+function Popup({ closePopup, targetMessage, deleteMessageInSocket, removeMessage, message, receiverId }) {
   const ref = useDetectClickOutside({ onTriggered: closePopup}); 
   
   const onClickEdit = () => {
@@ -12,6 +12,7 @@ function Popup({ closePopup, targetMessage, removeMessage, message }) {
   }
 
   const onClickDelete = async () => {
+    deleteMessageInSocket(message.senderId, receiverId, message._id);
     try {
         const response = await userRequest(`/api/message/${message._id}`, 'DELETE') 
         if(response.ok) {
