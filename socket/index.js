@@ -1,8 +1,17 @@
-const io = require("socket.io")(8000, {
-    cors:{
-        origin:"http://localhost:3000"
-    },
-});
+const express = require("express");
+const app = express();
+const http = require('http');
+const { Server } = require('socket.io')
+const cors = require('cors')
+
+app.use(cors());
+const server = http.createServer(app);
+
+const io  = new Server(server, {
+    cors: {
+        origin: 'http://localhost:3000'
+    }
+})
 
 let users = [];
 
@@ -27,8 +36,6 @@ io.on("connection", (socket) => {
 
     socket.on('sendMessage', ({senderId, receiverId, conversationId, text}) => {
         const user = getUser(receiverId);
-        console.log('receiverId:', receiverId)
-        console.log(user)
         user && io.to(user.socketId).emit('getMessage', { 
             senderId,
             conversationId,
@@ -37,7 +44,12 @@ io.on("connection", (socket) => {
     });
 
     socket.on('disconnect', () => {
+        console.log('user disconnected')
         removeUser(socket.id)
-        io.emit("getUsers", users);
+        io.emit("userDisconnected", users);
     });
 });
+
+server.listen(8000, () => {
+    console.log('socket server is runninng')
+})

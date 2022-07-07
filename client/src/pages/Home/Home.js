@@ -6,18 +6,15 @@ import Chat from '../../components/Chat/Chat'
 import Contacts from '../../components/Contacts/Contacts'
 import Recents from '../../components/Recents/Recents'
 import './Home.css'
+const socket = io.connect('http://localhost:8000')
+const user = getTokenAndDecode();
 
 function Home() {
   const [conversations, setConversations] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const [lastMessageSent, setLastMessageSent] = useState(null)
-  const socket = useRef();
-  const user = getTokenAndDecode();
 
-  useEffect(() => {
-    socket.current = io('ws://localhost:8000')
-  })
 
   const clearArrivalMessage = () => {
     setArrivalMessage(null)
@@ -28,14 +25,17 @@ function Home() {
   }
 
   useEffect(() => {
-    socket.current.emit('userConnect', user.id);
-    socket.current.on('getUsers', users=>{
-      // console.log("users from socket server:", users)
+    socket.emit('userConnect', user.id);
+    socket.on('getUsers', users=>{
+      console.log("users from socket server:", users)
     })
-  }, [user])
+    socket.on("userDisconnected", users=> {
+      console.log('user disconnected:', users)
+    })
+  }, [])
 
   useEffect(() => {
-    socket.current.on("getMessage", data => {
+    socket.on("getMessage", data => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -49,7 +49,7 @@ function Home() {
     const messageObj = { 
       senderId, receiverId, conversationId, text 
     };
-    socket.current.emit("sendMessage", messageObj);
+    socket.emit("sendMessage", messageObj);
   };
 
   const openChat = (chat) => {
@@ -69,7 +69,7 @@ function Home() {
     }
 
     getConversations();
-  })
+  }, [])
 
   const removeConversation = (id) =>  {
     setConversations(conversations.filter((c) => c._id !== id))

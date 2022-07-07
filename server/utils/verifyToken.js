@@ -23,7 +23,6 @@ const verifyToken = (req, res, next) => {
         const token = authHeader.split(" ")[1];
         jwt.verify(token, process.env.JWT_SEC, (err, data) => {
             if (err) {
-                console.log(authHeader)
                 return res.status(403).json({ message: "Invalid Token"})
             } 
             req.data = data;
