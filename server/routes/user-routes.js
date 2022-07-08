@@ -100,6 +100,10 @@ router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
 
         res.status(200).json(others);
     } catch (err) {
+        if(err.code === 11000) {
+            res.status(402).json({message: "User Already Exists"})
+            return;
+        }
         console.log(err);
         return res.status(500).json(err);  
     }

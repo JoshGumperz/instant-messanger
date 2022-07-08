@@ -1,0 +1,63 @@
+.si-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    flex-direction: column;
+    align-self: center;
+}
+
+.si-inputContainer {
+    position: relative;
+    display: flex;
+    width: 60%;
+    align-items: center;
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+.si-input {
+    margin-left: 0.3rem;
+    width:  70%;
+    height: 2rem;
+    padding: 0.3rem;
+    border: 1px solid rgb(220, 220, 220);
+    outline: none;
+    transition: 0.2s ease-in-out;
+    padding: 0.5em;
+    border-radius: 0;
+    align-self: flex-end;
+}
+
+.si-input::placeholder {
+    color: rgb(144, 144, 144);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.si-input:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.si-input:focus {
+    /* background-color: rgb(211, 211, 211); */
+    background-color: rgb(230, 230, 230);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+
+.si-icon {
+    position: absolute;
+    right: 2.2rem;
+    color: rgb(180, 180, 180);
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.si-icon:hover {
+    color: rgb(140, 140, 140);
+}
+
+.si-label {
+    font-weight: 600;
+    color: #000;
+    width: 25%;
+}

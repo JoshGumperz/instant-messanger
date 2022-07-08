@@ -1,8 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { IoEyeSharp, IoEyeOutline } from 'react-icons/io5'
+import './SettingsInput.css'
 
-function SettingsInput({type}) {
+function SettingsInput({ type, saveSettings, saveClicked, cancelClicked, updateCancelClicked }) {
   const [showPassword, setShowPassword] = useState(false)
   const [inputVal, setInputVal] = useState('')
+  
+  useEffect(() => {
+    if(cancelClicked) {
+      setInputVal('')
+      updateCancelClicked(false)
+    }
+  }, [cancelClicked])
+
+  useEffect(() => {
+      const apiCall = async () => {
+        const bodyToSend = type === 'email' ? { email: inputVal } : type === 'username' ? { username: inputVal} : { password: inputVal }
+        await saveSettings(JSON.stringify(bodyToSend)); 
+        setInputVal('')
+      }
+
+      if(saveClicked && inputVal) {
+        apiCall();
+      }
+  }, [saveClicked, type])
+
+
 
   return (
     <div className='si-container'>
@@ -11,14 +34,14 @@ function SettingsInput({type}) {
         <input type={
           type === 'password' && !showPassword ? 'password' 
         : type === 'email' ? 'email' 
-        : 'text'} value={inputVal} required={true} onChange={(e) => {setInputVal(e.target.value)}}/>
+        : 'text'} 
+        placeholder={`enter a  new ${type}...`}
+        value={inputVal} 
+        required={true} 
+        className={'si-input'}
+        onChange={(e) => {setInputVal(e.target.value)}}/>
+        { type === 'password' && !showPassword ? <IoEyeSharp className='si-icon' onClick={() => {setShowPassword(!showPassword)}}/> : type === 'password' && <IoEyeOutline className='si-icon' onClick={() => {setShowPassword(!showPassword)}}/> }
       </div>
-        {type === 'password' && 
-        <div className='si-checkboxContainer'>
-          <label className='si-label'>Show Password:</label>
-          <input type={'checkbox'} value={showPassword} onChange={() => {setShowPassword(!showPassword)}} />
-        </div>
-        }
     </div>
   )
 }
