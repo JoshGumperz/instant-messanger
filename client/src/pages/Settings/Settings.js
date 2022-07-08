@@ -7,9 +7,12 @@ function Settings() {
     <div className='settings-container'>
         <div className='settings-box'>
             <div className='settings-inputContainer'>
-              <SettingsInput/>
-              <SettingsInput/>
-              <SettingsInput/>
+              <SettingsInput type={'email'}/>
+              <SettingsInput type={'username'}/>
+              <SettingsInput type={'password'}/>
+            </div>
+            <div className='settings-deleteAccountContainer'>
+              <button className='settings-deleteAccount'>delete account</button>
             </div>
             <div className='settings-btnContainer'>
                 <button className='settings-btn settings-cancel'>cancel</button>

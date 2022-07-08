@@ -46,18 +46,18 @@ function LoginBox({loginOrSignup}) {
         <form className='loginbox-form' onSubmit={handleFormSubmit}>
           {errMessage ? <div className="loginbox-err-container"><p className="loginbox-err">{errMessage}</p></div> : null}
             <div className="loginbox-inputContainer">
-                <label for="email" className="loginbox-label">{signup ? 'Email' : 'Email Or Username'}</label>
+                <label className="loginbox-label">{signup ? 'Email' : 'Email Or Username'}</label>
                 <input name="email" type={signup ? 'email' : 'text'} className='loginbox-input' placeholder={signup ? 'enter email' : 'enter email or username'} required={true} value={email} onChange={(e) => {setEmail(e.target.value)}}/>
             </div>
             { signup ? 
                 <div className="loginbox-inputContainer">
-                    <label for="username" className="loginbox-label">Username</label>
+                    <label className="loginbox-label">Username</label>
                     <input name="username" className='loginbox-input' type='text' placeholder='enter username' value={username} required={true} onChange={(e) => {setUsername(e.target.value)}}/>
                 </div> 
                 : null
             }
             <div className="loginbox-inputContainer">
-                <label for="password" className="loginbox-label">Password</label>
+                <label className="loginbox-label">Password</label>
                 <input name="password" type={showPassword ? 'text' : 'password'} className='loginbox-input' placeholder='enter password' value={password} required={true} onChange={(e) => {setPassword(e.target.value)}}/>
             </div>
             <div className="loginbox-checkbox-container">
