@@ -16,17 +16,28 @@
     margin: 0.5rem 0 0.5rem 0;
 }
 
+.si-errMessage {
+    color: red;
+    text-align: left;
+    width: 42%;
+    font-size: 1.2rem;
+    margin-left: 13%;
+}
+
 .si-input {
     margin-left: 0.3rem;
     width:  70%;
     height: 2rem;
-    padding: 0.3rem;
     border: 1px solid rgb(220, 220, 220);
     outline: none;
     transition: 0.2s ease-in-out;
     padding: 0.5em;
     border-radius: 0;
     align-self: flex-end;
+}
+
+.si-password {
+    padding-right: 2.5em;
 }
 
 .si-input::placeholder {

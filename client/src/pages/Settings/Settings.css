@@ -7,6 +7,7 @@
 }
 
 .settings-box {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 60%;
@@ -18,3 +19,85 @@
     border-radius: 0.3rem;
     justify-content: center;
 }
+
+.settings-deleteAccountContainer {
+    display: flex;
+    width: 60%;
+    justify-content: flex-start;
+    align-self: center;
+    margin-top: 0.3rem;
+}
+
+.settings-deleteAccount {
+    outline: none;
+    background-color: rgb(227, 0, 0);
+    color: #fff;
+    border: 1px solid rgb(227, 0, 0);
+    padding: 0.3rem;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.settings-deleteAccount:hover {
+    background-color: #fff;
+    color: rgb(227, 0, 0);
+}
+
+.settings-btnContainer  {
+    display: flex;
+    width: 99%;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1%;
+    justify-content: flex-end;
+}
+
+.settings-btn {
+    position: relative;
+    z-index: 1;
+    height: 2.8rem;
+    width: 5.2rem;
+    margin-left: 0.3rem;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+    outline: none;
+}
+
+.settings-cancel {
+    background-color: rgb(117, 117, 117);
+    color: #fff;
+}
+
+.settings-save {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.settings-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    transition: 0.3s ease-in-out;
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
+.settings-save::before {
+    background-color: var(--main-color-hover);
+}
+
+.settings-cancel::before {
+    background-color: rgb(100, 100, 100);
+}
+
+.settings-btn:hover::before { 
+    transform: scaleY(1);
+}
+

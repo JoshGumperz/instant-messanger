@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
             admin: savedUser.isAdmin
         }, 
         process.env.JWT_SEC,
-        {expiresIn:"1d"}
+        {expiresIn:"4h"}
         )
         res.status(201).json({...others, accessToken});    
     } catch (err) {
@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
             admin: user.isAdmin
         }, 
         process.env.JWT_SEC,
-        {expiresIn:"1d"}
+        {expiresIn:"4h"}
         )
 
         res.status(200).json({...others, accessToken});    
