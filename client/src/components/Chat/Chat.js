@@ -5,13 +5,13 @@ import { getTokenAndDecode } from '../../utils/auth'
 import Message from '../Message/Message'
 import './Chat.css'
 
-function Chat({ conversation, sendMessageToSocket, editMessageInSocket, deleteMessageInSocket, modifyMessage, arrivalMessage, updateLastMessageSent }) {
+function Chat({ conversation, setLoggedIn, sendMessageToSocket, editMessageInSocket, deleteMessageInSocket, modifyMessage, arrivalMessage, updateLastMessageSent }) {
   const user = getTokenAndDecode();
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
   const [targettedMessage, setTargettedMessage] = useState(null)
   const scrollRef = useRef();
-  const receiverId = conversation.members.find(member => member !== user.id);
+  const receiverId = conversation.members.find(member => member !== user?.id);
 
 
   useEffect(() => {
@@ -43,6 +43,10 @@ function Chat({ conversation, sendMessageToSocket, editMessageInSocket, deleteMe
       if(response.ok) {
         const json = await response.json()
         setMessages(json)
+      } else {
+        if(response.status === 403) { 
+          setLoggedIn(false)
+        }
       }
     } catch (err) {
       console.log(err)
@@ -71,29 +75,37 @@ function Chat({ conversation, sendMessageToSocket, editMessageInSocket, deleteMe
 
   const sendMessage = async () => {
     try {
-      let bodyToSend = { senderId: user.id, text: newMessage, conversationId: conversation._id }
+      let bodyToSend = { senderId: user?.id, text: newMessage, conversationId: conversation._id }
       const response = await userRequest(`/api/message`, 'POST', JSON.stringify(bodyToSend)) 
       if(response.ok) {
         const json =  await response.json();
-        sendMessageToSocket(user.id, receiverId, json._id, conversation._id, newMessage);
+        sendMessageToSocket(user?.id, receiverId, json._id, conversation._id, newMessage);
         setMessages([...messages, json])
         setNewMessage('')
         updateLastMessageSent({conversationId: conversation._id, text: newMessage})
-      } 
+      } else {
+        if(response.status === 403) { 
+          setLoggedIn(false)
+        }
+      }
     } catch (err) {
       console.log(err)
     }
   }
 
   const editMessage = async () => {
-    editMessageInSocket(user.id, receiverId, targettedMessage.id, targettedMessage.text)
+    editMessageInSocket(user?.id, receiverId, targettedMessage.id, targettedMessage.text)
     try {
       let bodyToSend = { text: targettedMessage.text, edited: true }
       const response = await userRequest(`/api/message/${targettedMessage.id}`, 'PUT', JSON.stringify(bodyToSend)) 
       if(response.ok) {
         updateMessagesArr(targettedMessage);
         setTargettedMessage(null);
-      } 
+      } else {
+        if(response.status === 403) { 
+          setLoggedIn(false)
+        }
+      }
     } catch (err) {
       console.log(err)
     }
@@ -119,8 +131,8 @@ function Chat({ conversation, sendMessageToSocket, editMessageInSocket, deleteMe
         <div className='chat-messagesContainer'>
           { messages.length ? messages.map((m, index) => {
             return (
-              <div className={m.senderId === user.id ? 'chat-messageWrapperOwn' : 'chat-messageWrapper'} ref={scrollRef}>
-                <Message message={m} owner={m.senderId === user.id} deleteMessageInSocket={deleteMessageInSocket} targetMessage={targetMessage} removeMessage={removeMessage} receiverId={receiverId}/>
+              <div className={m.senderId === user?.id ? 'chat-messageWrapperOwn' : 'chat-messageWrapper'} ref={scrollRef}>
+                <Message message={m} owner={m.senderId === user?.id} deleteMessageInSocket={deleteMessageInSocket} targetMessage={targetMessage} removeMessage={removeMessage} receiverId={receiverId}/>
               </div>
             )
           }) : <p className='chat-p'>There are no messages in this conversation yet.</p>}

@@ -1,19 +1,18 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { userRequest } from '../../utils/apiCalls';
 import { removeJSONWebToken } from '../../utils/auth';
 import './Dropdown.css'
 
-function Dropdown({ closeDropdown }) {
+function Dropdown({ closeDropdown, setLoggedIn }) {
   const ref = useDetectClickOutside({ onTriggered: closeDropdown }); 
-  let history = useHistory(); 
 
   const logout = async () => {
     await userRequest('/api/user/logout', 'POST', null);
     removeJSONWebToken();
     closeDropdown();
-    history.push('/login')
+    setLoggedIn(false)
   }
 
   return (

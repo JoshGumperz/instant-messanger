@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Switch } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Signup from './pages/Signup/Signup'
 import { loggedIn } from './utils/auth';
-import TestRoute from './components/TestRoute/TestRoute';
 import Settings from './pages/Settings/Settings';
-import UnprotectedRoute from './components/UnprotectedRoute/UnprotectedRoute'
 import './App.css';
 
 
@@ -21,17 +18,25 @@ function App() {
 
   useEffect(() => {
     setUserLoggedIn(loggedIn())
-  }, [])
+  }, [userLoggedIn])
 
   return (
     <div className='app-main'>
       <div className='app-background'></div>
-      <Navbar userLoggedIn={userLoggedIn}/>
+      <Navbar setLoggedIn={setLoggedIn} userLoggedIn={userLoggedIn}/>
       <Switch>
-          <ProtectedRoute exact path="/" userLoggedIn={userLoggedIn} setUserLoggedIn={setLoggedIn} component={Home}/>
-          <ProtectedRoute exact path="/settings" userLoggedIn={userLoggedIn} setUserLoggedIn={setLoggedIn} component={Settings}/>
-          <UnprotectedRoute exact path={'/login'} userLoggedIn={userLoggedIn} setUserLoggedIn={setLoggedIn} component={Login}/>
-          <UnprotectedRoute exact path={'/signup'} userLoggedIn={userLoggedIn} setUserLoggedIn={setLoggedIn} component={Signup}/>
+          <Route exact path={'/'}>
+            { userLoggedIn ? <Home setLoggedIn={setLoggedIn}/> : <Login setLoggedIn={setLoggedIn}/>}
+          </Route>
+          <Route exact path={'/settings'}>
+            { userLoggedIn ? <Settings setLoggedIn={setLoggedIn}/> : <Login setLoggedIn={setLoggedIn}/>}
+          </Route>
+          <Route exact path={'/login'}>
+            { !userLoggedIn ? <Login setLoggedIn={setLoggedIn}/> : <Home setLoggedIn={setLoggedIn}/>}
+          </Route>
+          <Route exact path={'/signup'}>
+            { !userLoggedIn ? <Signup setLoggedIn={setLoggedIn}/> : <Home setLoggedIn={setLoggedIn}/>}
+          </Route>
       </Switch>
     </div>
   );

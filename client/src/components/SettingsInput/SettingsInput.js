@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IoEyeSharp, IoEyeOutline } from 'react-icons/io5'
 import './SettingsInput.css'
 
-function SettingsInput({ type, saveSettings, saveClicked, cancelClicked, updateSaveClicked, updateCancelClicked }) {
+function SettingsInput({ type, saveSettings, saveClicked, cancelClicked, body, updateBody, updateSaveClicked, updateCancelClicked }) {
   const [showPassword, setShowPassword] = useState(false)
   const [inputVal, setInputVal] = useState('')
   const [errMessage, setErrMessage] = useState('')
@@ -22,7 +22,7 @@ function SettingsInput({ type, saveSettings, saveClicked, cancelClicked, updateS
   useEffect(() => {
       const apiCall = async () => {
         const bodyToSend = type === 'email' ? { email: inputVal } : type === 'username' ? { username: inputVal} : { password: inputVal }
-        await saveSettings(JSON.stringify(bodyToSend)); 
+        await saveSettings(JSON.stringify(body)); 
         setInputVal('')
       }
 
@@ -39,6 +39,15 @@ function SettingsInput({ type, saveSettings, saveClicked, cancelClicked, updateS
         }
       }
   }, [saveClicked, type])
+
+  useEffect(() => {
+    if(inputVal) {
+      const bodyToSend = type === 'email' ? { email: inputVal } : type === 'username' ? { username: inputVal} : { password: inputVal }
+      updateBody(bodyToSend, type)
+    } else {
+      updateBody(false, type)
+    }
+  }, [inputVal])
 
 
 

@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { getTokenAndDecode } from '../../utils/auth'
+import { useState, useEffect } from 'react'
+import { getTokenAndDecode, loggedIn } from '../../utils/auth'
 import { userRequest } from '../../utils/apiCalls'
 import { io } from "socket.io-client"
 import Chat from '../../components/Chat/Chat'
@@ -8,7 +8,7 @@ import Recents from '../../components/Recents/Recents'
 import './Home.css'
 
 
-function Home() {
+function Home({ setLoggedIn }) {
   const [conversations, setConversations] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [arrivalMessage, setArrivalMessage] = useState(null)
@@ -17,17 +17,12 @@ function Home() {
   const user = getTokenAndDecode();
   const socket = io.connect('http://localhost:8000')
 
-
-  const clearArrivalMessage = () => {
-    setArrivalMessage(null)
-  }
-
   const updateLastMessageSent = (message) => {
     setLastMessageSent(message)
   }
 
   useEffect(() => {
-    socket.emit('userConnect', user.id);
+    socket.emit('userConnect', user?.id);
     socket.on('getUsers', users=>{
       console.log("users from socket server:", users)
     })
@@ -90,11 +85,14 @@ function Home() {
   
   useEffect(() => {
     async function getConversations() {
-      const response = await userRequest(`/api/conversation/${user.id}`, 'GET', null)
+      const response = await userRequest(`/api/conversation/${user?.id}`, 'GET', null)
       if(response.ok) {
         const json = await response.json()
         setConversations(json)
       } else {
+        if(response.status === 403) { 
+          setLoggedIn(false)
+        }
         const json = await response.json()
         console.log('error', json)
       }
@@ -119,12 +117,12 @@ function Home() {
         </div>
         <div className='home-wrapper home-main-container'>
           { currentChat ? 
-            <Chat conversation={currentChat} sendMessageToSocket={sendMessageToSocket} editMessageInSocket={editMessageInSocket} deleteMessageInSocket={deleteMessageInSocket} arrivalMessage={arrivalMessage} modifyMessage={modifyMessage} updateLastMessageSent={updateLastMessageSent}/>
+            <Chat conversation={currentChat} setLoggedIn={setLoggedIn} sendMessageToSocket={sendMessageToSocket} editMessageInSocket={editMessageInSocket} deleteMessageInSocket={deleteMessageInSocket} arrivalMessage={arrivalMessage} modifyMessage={modifyMessage} updateLastMessageSent={updateLastMessageSent}/>
             : <p className='home-p'>Open a conversation to start a chat.</p> 
           }
         </div>
         <div className='home-wrapper home-contacts-container'>
-          <Contacts contacts={conversations} openChat={openChat} removeContact={removeConversation} addContact={addConversation}/>
+          <Contacts setLoggedIn={setLoggedIn} contacts={conversations} openChat={openChat} removeContact={removeConversation} addContact={addConversation}/>
         </div>
       </div>
     </div>

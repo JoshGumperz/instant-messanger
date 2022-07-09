@@ -12,7 +12,7 @@ function Recents({ recents, openChat, arrivalMessage, lastMessageSent }) {
           {recents.length ? recents.map((c, index) => {
             return (
               <div onClick={() => {openChat(c)}}>
-                <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} arrivalMessage={arrivalMessage} lastMessageSent={lastMessageSent} recent={true}/>
+                <UserBox key={index} contactId={c.members.find((m) => m !== user?.id)} conversationId={c._id} arrivalMessage={arrivalMessage} lastMessageSent={lastMessageSent} recent={true}/>
               </div>
             )
           }) : <p className='recents-p'>You have no recent recent conversations.</p>}

@@ -2,12 +2,12 @@ import React from 'react'
 import LoginBox from '../../components/LoginBox/LoginBox'
 import './Signup.css'
 
-function Login() {
+function Signup({setLoggedIn}) {
   return (
     <div className='signup-container'>
-        <LoginBox loginOrSignup={'signup'}/>
+        <LoginBox setLoggedIn={setLoggedIn} loginOrSignup={'signup'}/>
     </div>
   )
 }
 
-export default Login
+export default Signup

@@ -7,7 +7,7 @@ import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import './Contacts.css'
 
-function Contacts({ contacts, openChat, removeContact, addContact }) {
+function Contacts({ contacts, setLoggedIn, openChat, removeContact, addContact }) {
   const user = getTokenAndDecode();
   const [search, setSearch] = useState('')
   const [searchedContacts, setSearchedContacts] = useState(null)
@@ -18,17 +18,21 @@ function Contacts({ contacts, openChat, removeContact, addContact }) {
   }
   
   const submitSearch = () => {
-    setSearchedContacts(contacts.filter((c) => c.memberNames[0].includes(search) || c.memberNames[1].includes(search))) 
+   const filterdList = contacts.filter((c) => c.memberNames[0].includes(search) || c.memberNames[1].includes(search))
+    setSearchedContacts(filterdList ? filterdList : 'No contact with that username found') 
   }
 
 
   const addNewContact = async (c) => {
-    let bodyToSend = { members: [user.id, c._id], memberNames: [user.username, c.username] }
+    let bodyToSend = { members: [user?.id, c._id], memberNames: [user?.username, c.username] }
     const response = await userRequest(`/api/conversation`, 'POST', JSON.stringify(bodyToSend)) 
       if(response.ok) {
         const json =  await response.json();
         addContact(json)
       } else {
+        if(response.status === 403) { 
+          setLoggedIn(false)
+        }
         const json = await response.json();
         console.log('error', json)
         return
@@ -92,13 +96,13 @@ function Contacts({ contacts, openChat, removeContact, addContact }) {
           {searchedContacts === null ? contacts.length ? contacts.map((c, index) => {
               return (
                 <div onClick={() => {openChat(c)}}>
-                  <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
+                  <UserBox key={index} contactId={c.members.find((m) => m !== user?.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
                 </div>
               )
             }) : <p className='contacts-p'>You have no contacts.</p> : searchedContacts.length ? searchedContacts.map((c, index) => {
               return (
                 <div  onClick={() => {openChat(c)}}>
-                  <UserBox key={index} contactId={c.members.find((m) => m !== user.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
+                  <UserBox key={index} contactId={c.members.find((m) => m !== user?.id)} conversationId={c._id} removeContact={removeContact} recent={false} />
                 </div>
               )
             }) : <p className='contacts-p'>No contact with that username found.</p> }

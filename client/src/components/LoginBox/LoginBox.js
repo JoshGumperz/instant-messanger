@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { publicRequest } from "../../utils/apiCalls"
 import './LoginBox.css'
 
-function LoginBox({loginOrSignup}) {
+function LoginBox({setLoggedIn, loginOrSignup}) {
   let history = useHistory();
   const signup = loginOrSignup === 'signup'
   const [email, setEmail] = useState('')
@@ -31,6 +31,7 @@ function LoginBox({loginOrSignup}) {
     
     if(response.ok) {
       const json = await response.json()
+      setLoggedIn(true);
       localStorage.setItem('JWTToken', json.accessToken);
       history.push('/')
     } else {
@@ -44,7 +45,7 @@ function LoginBox({loginOrSignup}) {
     <div className='loginbox-container'>
         <h4 className="loginbox-header">{signup ? 'Signup' : 'Login'}</h4>
         <form className='loginbox-form' onSubmit={handleFormSubmit}>
-          {errMessage ? <div className="loginbox-err-container"><p className="loginbox-err">{errMessage}</p></div> : null}
+          {errMessage && <div className="loginbox-err-container"><p className="loginbox-err">{errMessage}</p></div> }
             <div className="loginbox-inputContainer">
                 <label className="loginbox-label">{signup ? 'Email' : 'Email Or Username'}</label>
                 <input name="email" type={signup ? 'email' : 'text'} className='loginbox-input' placeholder={signup ? 'enter email' : 'enter email or username'} required={true} value={email} onChange={(e) => {setEmail(e.target.value)}}/>

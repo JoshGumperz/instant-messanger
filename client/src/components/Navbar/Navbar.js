@@ -5,7 +5,7 @@ import Dropdown from '../Dropdown/Dropdown'
 import "./Navbar.css"
 
 
-function Navbar({ userLoggedIn }) {
+function Navbar({ userLoggedIn, setLoggedIn }) {
   const [openDropDown, setOpenDropDown] = useState(false)
   const [count, setCount] = useState(0)
 
@@ -38,7 +38,7 @@ function Navbar({ userLoggedIn }) {
                   </li>
                 </ul> 
               : null}
-              {openDropDown ? <Dropdown closeDropdown={toggleDropdown}/> : null }
+              {openDropDown ? <Dropdown closeDropdown={toggleDropdown} setLoggedIn={setLoggedIn}/> : null }
            </div>
         </header>
     </>
