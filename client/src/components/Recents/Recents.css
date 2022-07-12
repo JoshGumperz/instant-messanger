@@ -29,3 +29,53 @@
 .recents-boxContainer::-webkit-scrollbar {
     display: none;
 }
+
+@media screen and (max-width: 650px) {
+    .recents-header {
+        font-size: 0.8rem;
+    }
+
+    .recents-p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .recents-container {
+        padding: 0.3rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .recents-p {
+        font-size: 0.8rem;
+    }
+
+    .recents-boxContainer {
+        margin-top: 0.5em;
+    }
+}
+
+@media screen and (max-width: 400px) { 
+    .recents-p {
+        font-size: 0.7rem;
+    }
+
+    .recents-header {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width: 300px) { 
+    .recents-p {
+        font-size: 0.5rem;
+    }
+    
+    .recents-container {
+        padding: 0.2rem;
+    }
+
+    .recents-header {
+        font-size: 0.5rem;
+    }
+}

@@ -71,3 +71,69 @@
 .message-container.message-own .message-date {
     text-align: right;
 }
+
+@media screen and (max-width: 480px) { 
+    .message-edited {
+        font-size: 0.7rem;
+    }
+
+    .message-container {
+        max-width: 11em;
+    }
+    
+    .message-textWrapper, .message-textWrapperEdited {
+        max-width: 11em;
+    }
+    
+    .message-textWrapperEdited {
+        max-width: 11em;
+    }
+}
+
+@media screen and (max-width: 400px) { 
+
+    .message-container {
+        max-width: 10.5em;
+    }
+    
+    .message-textWrapper, .message-textWrapperEdited {
+        max-width: 10.5em;
+    }
+    
+    .message-textWrapperEdited {
+        max-width: 10.5em;
+    }
+}
+
+@media screen and (max-width: 340px) { 
+
+    .message-container {
+        max-width: 10em;
+    }
+    
+    .message-textWrapper, .message-textWrapperEdited {
+        max-width: 10em;
+    }
+    
+    .message-textWrapperEdited {
+        max-width: 10em;
+    }
+}
+
+@media screen and (max-width: 300px) { 
+    .message-edited {
+        font-size: 0.5rem;
+    }
+
+    .message-container {
+        max-width: 7.5em;
+    }
+    
+    .message-textWrapper, .message-textWrapperEdited {
+        max-width: 7.5em;
+    }
+    
+    .message-textWrapperEdited {
+        max-width: 7.5em;
+    }
+}

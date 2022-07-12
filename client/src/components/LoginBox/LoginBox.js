@@ -1,6 +1,7 @@
 import {useState} from "react"
 import { Link, useHistory } from 'react-router-dom'
 import { publicRequest } from "../../utils/apiCalls"
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 import './LoginBox.css'
 
 function LoginBox({setLoggedIn, loginOrSignup}) {
@@ -11,6 +12,7 @@ function LoginBox({setLoggedIn, loginOrSignup}) {
   const [password, setPassword] = useState('')
   const [errMessage, setErrMessage] = useState('') 
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const isValidEmail = email => {
     const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -19,6 +21,7 @@ function LoginBox({setLoggedIn, loginOrSignup}) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     const validEmail = isValidEmail(email)
     let response
     if (signup) {
@@ -31,10 +34,12 @@ function LoginBox({setLoggedIn, loginOrSignup}) {
     
     if(response.ok) {
       const json = await response.json()
+      setIsLoading(false)
       setLoggedIn(true);
       localStorage.setItem('JWTToken', json.accessToken);
       history.push('/')
     } else {
+      setIsLoading(false)
       const json = await response.json()
       console.log('fail', json)
       setErrMessage(json.message)
@@ -66,7 +71,7 @@ function LoginBox({setLoggedIn, loginOrSignup}) {
               <input className="loginbox-checkbox" type={'checkbox'} value={showPassword} checked={showPassword} onChange={() => {setShowPassword(!showPassword)}}/>
             </div>
             <div className="loginbox-btnContainer">
-                <button className="loginbox-btn">{signup ? 'Sign Up' : 'Log In'}</button>
+                <button className={ isLoading ? 'loginbox-loading' : "loginbox-btn"}>{ isLoading ? <LoadingAnimation/> : signup ? 'Sign Up' : 'Log In'}</button>
             </div>
         </form>
         <div className="loginbox-linkContainer">

@@ -87,3 +87,117 @@
     color: rgb(110, 110, 110);
     cursor: pointer;
 }
+
+@media screen and (max-width: 700px) {
+    .contacts-input {
+        font-size: 0.6rem;
+    }
+
+    .contacts-p {
+        font-size: 1rem;
+    }
+    
+    .contacts-addContacts {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .contacts-p {
+        font-size: 0.8rem;
+    }
+    
+    .contacts-addContacts {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .contacts-input {
+        font-size: 0.4rem;
+    }
+
+    .contacts-searchBtn, .contacts-clearSearchBtn {
+        font-size: 1rem;
+    }
+
+    .contacts-searchBtn {
+        margin-left: 0.3rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .contacts-container {
+        padding: 0.3rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contacts-header {
+        font-size: 1rem;
+    }
+
+    .contacts-inputContainer {
+        margin: 0.5rem 0 0.2rem 0;
+    }
+
+    .contacts-p {
+        margin: 0.5rem 0 0.5rem 0;
+    }
+
+    .contacts-p {
+        font-size: 0.7rem;
+    }
+    
+    .contacts-addContacts {
+        font-size: 0.7rem;
+    }
+
+    .contacts-clearSearchBtn {
+        right: 25%;
+    }
+}
+
+@media screen and (max-width: 400px) { 
+    .contacts-p {
+        font-size: 0.7rem;
+    }
+
+    .contacts-addContacts {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width: 300px) { 
+    .contacts-container {
+        padding: 0.2rem;
+    }
+
+    .contacts-p {
+        font-size: 0.5rem;
+    }
+    
+    .contacts-container {
+        padding: 0.2rem;
+    }
+
+    .contacts-header {
+        font-size: 0.8rem;
+    }
+
+    .contacts-addContacts {
+        font-size: 0.5rem;
+    }
+
+    .contacts-input {
+        font-size: 0.3rem;
+    }
+
+    .contacts-searchBtn, .contacts-clearSearchBtn {
+        font-size: 0.6rem;
+    }
+
+    .contacts-searchBtn {
+        margin-left: 0.1rem;
+    }
+}

@@ -74,12 +74,10 @@
     margin: 1.5em 0 1.5em 0;
 }
 
-.loginbox-btn {
+.loginbox-btn, .loginbox-loading {
     width: 10rem;
     height: 3.5rem;
     border-radius: 1.3rem;
-    background-color: var(--main-color);
-    color: #fff;
     border: none;
     outline: none;
     cursor: pointer;
@@ -89,6 +87,16 @@
     font-weight: 600;
     transition: 0.3s ease-in-out;
     border: solid 2px var(--main-color);
+}
+
+.loginbox-btn {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.loginbox-loading {
+    background-color: #fff;
+    color: var(--main-color);
 }
 
 .loginbox-btn:hover {

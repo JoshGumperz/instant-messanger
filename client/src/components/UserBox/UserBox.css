@@ -55,3 +55,41 @@
 .userbox-hidden {
     display: none;
 }
+
+@media screen and (max-width: 600px) {
+    .userbox-removeBtn {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .userbox-removeBtn {
+        font-size: 0.5rem;
+    }
+
+    .userbox-name {
+        font-size: 0.8rem;
+    }
+
+    .userbox-container {
+        height: 2.5em;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .userbox-removeBtn {
+        font-size: 0.4rem;
+    }
+
+    .userbox-name {
+        font-size: 0.5rem;
+    }
+
+    .userbox-lastMessage {   
+        font-size: 0.5rem;
+    }
+
+    .userbox-container {
+        height: 2em;
+    }
+}

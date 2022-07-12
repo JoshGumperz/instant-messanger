@@ -20,6 +20,10 @@
     justify-content: center;
 }
 
+.settings-inputContainer {
+    width: 100%;
+}
+
 .settings-deleteAccountContainer {
     display: flex;
     width: 60%;
@@ -101,3 +105,62 @@
     transform: scaleY(1);
 }
 
+@media screen and (max-width: 1512px) {
+    .settings-deleteAccountContainer {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .settings-deleteAccountContainer {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 965px) {
+    .settings-deleteAccountContainer {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 862px) {
+    .settings-deleteAccountContainer {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .settings-box {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .settings-box {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .settings-box {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .settings-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .settings-deleteAccount {
+        padding: 0.2rem;
+        font-size: 0.7rem;
+    }
+
+    .settings-btn {
+        height: 2.2rem;
+        width: 4.2rem;
+    }
+}
