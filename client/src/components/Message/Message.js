@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { format } from 'timeago.js'
+import TimeAgo from 'timeago-react';
 import Popup from '../Popup/Popup'
 import './Message.css'
 
@@ -29,7 +29,7 @@ function Message({ message, owner, targetMessage, deleteMessageInSocket, removeM
           <div className={`message-bubble ${owner ? 'message-sent' : 'message-recieved'} ${message.edited && 'editedBubble'}`}>{message.text}</div>  
           { message.edited && !owner && <p className='message-edited'>(edited)</p> }
         </div>
-        <p className='message-date'>{format(message.createdAt)}</p>
+        <TimeAgo className='message-date' datetime={message.createdAt}/>
     </div>
   )
 }
