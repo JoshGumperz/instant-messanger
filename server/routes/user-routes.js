@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
             admin: savedUser.isAdmin
         }, 
         process.env.JWT_SEC,
-        {expiresIn:"90s"}
+        {expiresIn:"4h"}
         )
         res.status(201).json({...others, accessToken});    
     } catch (err) {
