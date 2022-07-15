@@ -51,7 +51,7 @@ function Settings({setLoggedIn}) {
 
   const deleteAccount = async () => {
     try {
-      const response = await userRequest(`/api/user/${user.id}`, 'DELETE', null)
+      const response = await userRequest(`/api/delete/${user.id}`, 'DELETE', null)
       if(response.ok) {
         deleteSucceeded();
       } else {
@@ -115,7 +115,7 @@ function Settings({setLoggedIn}) {
 
   const saveSettings = async (body) => {
     try {
-      const response = await userRequest(`/api/user/${user.id}`, 'PUT', body)
+      const response = await userRequest(`/api/settings/${user.id}`, 'PUT', body)
       if(response.ok) {
         saveSucceeded();
         setSaveClicked(false)

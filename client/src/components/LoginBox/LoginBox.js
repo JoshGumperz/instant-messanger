@@ -26,10 +26,10 @@ function LoginBox({setLoggedIn, loginOrSignup}) {
     let response
     if (signup) {
       let bodyToSend = { email: email, username: username, password: password }
-      response = await publicRequest('/api/user/register', 'POST', JSON.stringify(bodyToSend))
+      response = await publicRequest('/api/register', 'POST', JSON.stringify(bodyToSend))
     } else {
       let bodyToSend = validEmail ? { email: email, password: password } : { username: email, password: password }
-      response = await publicRequest('/api/user/login', 'POST', JSON.stringify(bodyToSend))
+      response = await publicRequest('/api/login', 'POST', JSON.stringify(bodyToSend))
     }
     
     if(response.ok) {

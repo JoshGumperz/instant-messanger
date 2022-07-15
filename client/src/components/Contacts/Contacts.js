@@ -40,7 +40,7 @@ function Contacts({ contacts, setLoggedIn, openChat, removeContact, addContact }
   }
 
   const findNewContact = async (username) => {
-    const response = await userRequest(`/api/user/find/username/${username}`, 'GET', null) 
+    const response = await userRequest(`/api/find/username/${username}`, 'GET', null) 
     try {
       if(response.ok) {
         const json =  await response.json();

@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const { verifyTokenAndAuthorization, verifyTokenAndAdmin, verifyToken } = require('../utils/verifyToken');
 
 
-// CREATE NEW USER -> /API/USER/REGISTER 
+// CREATE NEW USER -> /API/REGISTER 
 router.post('/register', async (req, res) => {
     try {
         let savedUser
@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
-// LOGIN -> /API/USER/LOGIN
+// LOGIN -> /API/LOGIN
 router.post('/login', async (req, res) => {
     try {
         const conditions = !req.body.username ? { email: req.body.email } : { username: req.body.username };
@@ -76,7 +76,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-// LOGOUT -> /API/USER/LOGOUT
+// LOGOUT -> /API/LOGOUT
 router.post('/logout', verifyToken, async (req, res) => {
     try {
         res.status(204).json({message: "logged out"}).end();
@@ -85,8 +85,8 @@ router.post('/logout', verifyToken, async (req, res) => {
     }
 })
 
-// EDIT USER -> /API/USER/:id
-router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
+// EDIT USER -> /API/SETTINGS/:id
+router.put('/settings/:id', verifyTokenAndAuthorization, async (req, res) => {
     if (req.body.password) {
         req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_PHRASE).toString();
     }
@@ -109,8 +109,8 @@ router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
     }
 })
 
-// DELETE USER -> /API/USER/:id
-router.delete('/:id', verifyTokenAndAuthorization, async (req, res) => {
+// DELETE USER -> /API/DELETE/:id
+router.delete('/delete/:id', verifyTokenAndAuthorization, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id)
         res.status(200).json({message: "user deleted successfully"})
@@ -120,7 +120,7 @@ router.delete('/:id', verifyTokenAndAuthorization, async (req, res) => {
     }
 })
 
-// GET ALL USERS -> /APU/USER/FIND
+// GET ALL USERS -> /API/FIND
 router.get('/find', verifyTokenAndAdmin, async (req, res) => {
     try {
         const users = await User.find();
@@ -132,7 +132,7 @@ router.get('/find', verifyTokenAndAdmin, async (req, res) => {
 })
 
 
-// GET SPECIFIC USER -> /API/USER/FIND/:id
+// GET SPECIFIC USER -> /API/FIND/:id
 router.get('/find/:id', verifyToken, async (req, res) => {
     try {
         const user = await User.findById(req.params.id) 

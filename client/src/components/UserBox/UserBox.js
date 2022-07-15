@@ -45,7 +45,7 @@ function UserBox({ contactId, conversationId, removeContact, arrivalMessage, las
 
   useEffect(() => {
     async function getContact() {
-      const response = await userRequest(`/api/user/find/${contactId}`, 'GET', null) 
+      const response = await userRequest(`/api/find/${contactId}`, 'GET', null) 
       if(response.ok) {
         const json =  await response.json();
         setContact(json)

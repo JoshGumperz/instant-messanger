@@ -9,7 +9,7 @@ function Dropdown({ closeDropdown, setLoggedIn }) {
   const ref = useDetectClickOutside({ onTriggered: closeDropdown }); 
 
   const logout = async () => {
-    await userRequest('/api/user/logout', 'POST', null);
+    await userRequest('/api/logout', 'POST', null);
     removeJSONWebToken();
     closeDropdown();
     setLoggedIn(false)
