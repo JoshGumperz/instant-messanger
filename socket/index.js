@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io  = new Server(server, {
     cors: {
-        origin: 'https://jg-instant-messenger.herokuapp.com/'
+        origin: 'http://localhost:3000'
     }
 })
 

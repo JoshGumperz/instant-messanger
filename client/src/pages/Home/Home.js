@@ -15,7 +15,7 @@ function Home({ setLoggedIn }) {
   const [modifyMessage, setModifyMessage] = useState(null)
   const [lastMessageSent, setLastMessageSent] = useState(null)
   const user = getTokenAndDecode();
-  const socket = io.connect('http://localhost:8000')
+  const socket = io.connect('http://localhost:3001')
 
   const updateLastMessageSent = (message) => {
     setLastMessageSent(message)
