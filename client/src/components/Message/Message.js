@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import TimeAgo from 'timeago-react';
 import Popup from '../Popup/Popup'
 import './Message.css'
 
@@ -7,6 +6,41 @@ import './Message.css'
 function Message({ message, owner, targetMessage, deleteMessageInSocket, removeMessage,receiverId }) {
   const [openPopup, setOpenPopup] = useState(false)
   const [count, setCount] = useState(0)
+
+  function timeSince(utcDate) {
+    let currentDate = new Date()
+    let localDate = new Date(utcDate);
+
+    var seconds = Math.floor((currentDate - localDate) / 1000);
+  
+    var interval = seconds / 31536000;
+  
+    if (interval > 1) {
+      const amount = Math.floor(interval)
+      return amount > 1 ? amount + " years ago" : amount + " year ago";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      const amount = Math.floor(interval)
+      return amount > 1 ? amount + " months ago" : amount + " month ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      const amount = Math.floor(interval)
+      return amount > 1 ? amount + " days ago" : amount + " day ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      const amount = Math.floor(interval)
+      return amount > 1 ? amount + " hours ago" : amount + " hour ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      const amount = Math.floor(interval)
+      return amount > 1 ? amount + " minutes ago" : amount + " minute ago";
+    }
+    return "just now"
+  }
 
   const togglePopup = () => {
     if (count >= 1) {
@@ -29,7 +63,7 @@ function Message({ message, owner, targetMessage, deleteMessageInSocket, removeM
           <div className={`message-bubble ${owner ? 'message-sent' : 'message-recieved'} ${message.edited && 'editedBubble'}`}>{message.text}</div>  
           { message.edited && !owner && <p className='message-edited'>(edited)</p> }
         </div>
-        <TimeAgo className='message-date' datetime={message.createdAt}/>
+        <div className='message-date'>{timeSince(message.createdAt)}</div>
     </div>
   )
 }
