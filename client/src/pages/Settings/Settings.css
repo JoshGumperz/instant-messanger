@@ -4,6 +4,7 @@
     justify-content: center;
     height: calc(100vh - 5em);
     width: 100vw;
+    font-family: 'Roboto', sans-serif;
 }
 
 .settings-box {
@@ -22,6 +23,13 @@
 
 .settings-inputContainer {
     width: 100%;
+}
+
+.settings-errMessage {
+    color: red;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 0.6em;
 }
 
 .settings-deleteAccountContainer {

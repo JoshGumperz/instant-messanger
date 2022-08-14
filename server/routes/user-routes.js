@@ -86,7 +86,7 @@ router.post('/logout', verifyToken, async (req, res) => {
 })
 
 // EDIT USER -> /API/SETTINGS/:id
-router.put('/settings/:id', verifyTokenAndAuthorization, async (req, res) => {
+router.put('/user/:id', verifyTokenAndAuthorization, async (req, res) => {
     if (req.body.password) {
         req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_PHRASE).toString();
     }
@@ -101,7 +101,7 @@ router.put('/settings/:id', verifyTokenAndAuthorization, async (req, res) => {
         res.status(200).json(others);
     } catch (err) {
         if(err.code === 11000) {
-            res.status(402).json({message: "User Already Exists"})
+            res.status(409).json({message: "A User With That Username Already Exists"})
             return;
         }
         console.log(err);

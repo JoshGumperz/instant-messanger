@@ -11,8 +11,8 @@ const cors = require('cors')
 app.use(cors());
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use('/api', routes)
 dotenv.config();
+app.use('/api', routes)
 const PORT = process.env.PORT || 3001
 const server = http.createServer(app);
 

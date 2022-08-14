@@ -57,7 +57,7 @@ function Contacts({ contacts, setLoggedIn, openChat, removeContact, addContact }
 
   const popupReport = () => {
     Report.failure(
-      'User Doesnt Exist',
+      'User Not Found',
       'No user with that username found',
       'Okay',
       );

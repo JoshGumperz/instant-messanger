@@ -9,10 +9,15 @@ import './Settings.css'
 
 function Settings({setLoggedIn}) {
   const user = getTokenAndDecode();
-  const [saveClicked, setSaveClicked] = useState(false)
   const [cancelClicked, setCancelClicked] = useState(false)
   const [body, setBody] = useState({})
+  const [errMessage, setErrMessage] = useState('')
   const history = useHistory();
+
+  const isValidEmail = email => {
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(String(email).toLowerCase());
+  };
 
   const updateBody = (value, type) => {
     if(value) {
@@ -43,11 +48,9 @@ function Settings({setLoggedIn}) {
     setCancelClicked(value)
   }
 
-  const updateSaveClicked = (value) => {
-    setSaveClicked(value)
+  const updateErrMessage = (value) => {
+    setErrMessage(value)
   }
-
-  console.log(body)
 
   const deleteAccount = async () => {
     try {
@@ -113,19 +116,25 @@ function Settings({setLoggedIn}) {
       );
   }
 
-  const saveSettings = async (body) => {
+  const saveSettings = async () => {
+    if(!body.email && !body.username && !body.password) {
+      setErrMessage("Please fill out at least one of the below fields")
+      return 
+    } else if (body.email && !isValidEmail(body.email)) {
+      setErrMessage("Please enter a valid email in the email field")
+      return 
+    }
     try {
-      const response = await userRequest(`/api/settings/${user.id}`, 'PUT', body)
+      const response = await userRequest(`/api/user/${user.id}`, 'PUT', JSON.stringify(body))
       if(response.ok) {
         saveSucceeded();
-        setSaveClicked(false)
+        setBody({});
       } else {
         if(response.status === 409) {
           saveFailed();
         } else if (response.status === 403) {
           setLoggedIn(false)
         }
-        setSaveClicked(false)
       }
     } catch (err) {
       console.log(err)
@@ -135,10 +144,11 @@ function Settings({setLoggedIn}) {
   return (
     <div className='settings-container'>
         <div className='settings-box'>
+        {errMessage && <p className='settings-errMessage'>{errMessage}</p>}
             <div className='settings-inputContainer'>
-              <SettingsInput type={'email'} saveSettings={saveSettings} saveClicked={saveClicked} cancelClicked={cancelClicked} body={body} updateBody={updateBody} updateSaveClicked={updateSaveClicked} updateCancelClicked={updateCancelClicked}/>
-              <SettingsInput type={'username'} saveSettings={saveSettings} saveClicked={saveClicked} cancelClicked={cancelClicked} body={body} updateBody={updateBody} updateSaveClicked={updateSaveClicked} updateCancelClicked={updateCancelClicked}/>
-              <SettingsInput type={'password'} saveSettings={saveSettings} saveClicked={saveClicked} cancelClicked={cancelClicked} body={body} updateBody={updateBody} updateSaveClicked={updateSaveClicked} updateCancelClicked={updateCancelClicked}/>
+              <SettingsInput type={'email'} updateErrMessage={updateErrMessage} cancelClicked={cancelClicked} updateBody={updateBody} updateCancelClicked={updateCancelClicked}/>
+              <SettingsInput type={'username'} updateErrMessage={updateErrMessage} cancelClicked={cancelClicked} updateBody={updateBody} updateCancelClicked={updateCancelClicked}/>
+              <SettingsInput type={'password'} updateErrMessage={updateErrMessage} cancelClicked={cancelClicked} updateBody={updateBody} updateCancelClicked={updateCancelClicked}/>
             </div>
             <div className='settings-deleteAccountContainer'>
               <button className='settings-deleteAccount' onClick={onClickDeleteAcc}>delete account</button>
@@ -148,7 +158,7 @@ function Settings({setLoggedIn}) {
                   setCancelClicked(true)
                   setBody({})
                 }}>cancel</button>
-                <button className='settings-btn settings-save' onClick={() => {setSaveClicked(true)}}>save</button>
+                <button className='settings-btn settings-save' onClick={() => {saveSettings()}}>save</button>
             </div>
         </div>
     </div>
