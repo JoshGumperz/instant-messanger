@@ -25,7 +25,7 @@ function Popup({ closePopup, targetMessage, deleteMessageInSocket, removeMessage
   }
 
   return (
-    <div className={'popup-container'} ref={ref}>
+    <div className='popup-container' ref={ref}>
         <ul className='popup-list'>
             <li className='popup-listItem' onClick={onClickEdit}>
                 <p className='popup-listOption'>edit</p>
