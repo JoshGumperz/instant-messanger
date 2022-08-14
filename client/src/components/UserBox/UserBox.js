@@ -13,7 +13,6 @@ function UserBox({ contactId, conversationId, removeContact, arrivalMessage, las
     if(response.ok) {
       const json = await response.json();
       removeContact(conversationId);
-      console.log('success', json)
       return
     } else {
       const json = await response.json();

@@ -153,6 +153,10 @@
     .settings-box {
         width: 90%;
     }
+
+    .settings-errMessage {
+        font-size: 1rem;
+    }
 }
 
 @media screen and (max-width: 470px) {
@@ -164,6 +168,10 @@
 @media screen and (max-width: 300px) {
     .settings-deleteAccount {
         padding: 0.2rem;
+        font-size: 0.7rem;
+    }
+
+    .settings-errMessage {
         font-size: 0.7rem;
     }
 

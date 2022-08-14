@@ -22,7 +22,6 @@ function Navbar({ userLoggedIn, setLoggedIn }) {
     }
   }, [openDropDown])
 
-  // console.log('userLoggedIn from navbar:', userLoggedIn)
   return (
     <>
         <header className='navbar-nav'>

@@ -12,17 +12,19 @@ function Message({ message, owner, targetMessage, deleteMessageInSocket, removeM
     let localDate = new Date(utcDate);
 
     var seconds = Math.floor((currentDate - localDate) / 1000);
-  
-    var interval = seconds / 31536000;
-  
+
+    let interval = seconds / 3456000;
     if (interval > 1) {
-      const amount = Math.floor(interval)
-      return amount > 1 ? amount + " years ago" : amount + " year ago";
+      return localDate.toLocaleDateString('en-us', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })
     }
     interval = seconds / 2592000;
     if (interval > 1) {
       const amount = Math.floor(interval)
-      return amount > 1 ? amount + " months ago" : amount + " month ago";
+      return amount + " month ago";
     }
     interval = seconds / 86400;
     if (interval > 1) {

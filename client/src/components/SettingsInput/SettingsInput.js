@@ -15,27 +15,6 @@ function SettingsInput({ type, cancelClicked, updateBody, updateCancelClicked, u
     }
   }, [cancelClicked])
 
-  // useEffect(() => {
-  //     const apiCall = async () => {
-  //       const bodyToSend = type === 'email' ? { email: inputVal } : type === 'username' ? { username: inputVal} : { password: inputVal }
-  //       await saveSettings(JSON.stringify(body)); 
-  //       setInputVal('')
-  //     }
-  //     console.log('use effect triggered')
-  //     if(saveClicked && inputVal) {
-  //       if(type === 'email') {
-  //         if(isValidEmail(inputVal)) { 
-  //           apiCall() 
-  //         } else { 
-  //             setErrMessage('Please Enter A Valid Email Address')
-  //             updateSaveClicked(false) 
-  //         }
-  //       } else if (!type === 'email' && !errMessage){
-  //         apiCall();
-  //       }
-  //     }
-  // }, [saveClicked, type])
-
   useEffect(() => {
     if(inputVal) {
       const bodyToSend = type === 'email' ? { email: inputVal } : type === 'username' ? { username: inputVal} : { password: inputVal }

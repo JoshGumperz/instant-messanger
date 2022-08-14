@@ -24,10 +24,10 @@ function Home({ setLoggedIn }) {
   useEffect(() => {
     socket.emit('userConnect', user?.id);
     socket.on('getUsers', users=>{
-      console.log("users from socket server:", users)
+      console.log('user connected')
     })
     socket.on("userDisconnected", users=> {
-      console.log('user disconnected:', users)
+      console.log('user disconnected')
     })
   }, [user])
 

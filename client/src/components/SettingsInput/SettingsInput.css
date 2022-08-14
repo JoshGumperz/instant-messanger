@@ -16,14 +16,6 @@
     margin: 0.5rem 0 0.5rem 0;
 }
 
-.si-errMessage {
-    color: red;
-    text-align: left;
-    width: 42%;
-    font-size: 1.2rem;
-    margin-left: 13%;
-}
-
 .si-input {
     margin-left: 0.3rem;
     width:  70%;
