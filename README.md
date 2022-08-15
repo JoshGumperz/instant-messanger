@@ -30,7 +30,7 @@ npm run dev
 As you can see from the demo above, the app allows you to send, edit, and delete messeges in real time. But in order to do that, you'll need an account, and another account to send messeges to. So, you can either create your own account, or you can log in to one of the 9 existing test accounts. The information for these accounts are as follows:
 
 ``` 
-Username: test1, test2, test3, test4, test5, test6, test7, test8, & test9
+Usernames: test1, test2, test3, test4, test5, test6, test7, test8, & test9
 Password: 12345678
 ```
 
