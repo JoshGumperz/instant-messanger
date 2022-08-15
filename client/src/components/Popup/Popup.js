@@ -12,12 +12,10 @@ function Popup({ closePopup, targetMessage, deleteMessageInSocket, removeMessage
   }
 
   const onClickDelete = async () => {
+    removeMessage(message._id);
     deleteMessageInSocket(message.senderId, receiverId, message._id);
     try {
-        const response = await userRequest(`/api/message/${message._id}`, 'DELETE') 
-        if(response.ok) {
-          removeMessage(message._id);
-        } 
+        await userRequest(`/api/message/${message._id}`, 'DELETE') 
       } catch (err) {
         console.log(err)
       }
