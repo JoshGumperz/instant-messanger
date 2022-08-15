@@ -9,7 +9,7 @@ import './Settings.css'
 
 function Settings({setLoggedIn}) {
   const user = getTokenAndDecode();
-  const [cancelClicked, setCancelClicked] = useState(false)
+  const [clearInput, setClearInput] = useState(false)
   const [body, setBody] = useState({})
   const [errMessage, setErrMessage] = useState('')
   const history = useHistory();
@@ -44,8 +44,8 @@ function Settings({setLoggedIn}) {
 
   }
 
-  const updateCancelClicked = (value) => {
-    setCancelClicked(value)
+  const updateClearInput = (value) => {
+    setClearInput(value)
   }
 
   const updateErrMessage = (value) => {
@@ -127,8 +127,9 @@ function Settings({setLoggedIn}) {
     try {
       const response = await userRequest(`/api/user/${user.id}`, 'PUT', JSON.stringify(body))
       if(response.ok) {
-        saveSucceeded();
         setBody({});
+        setClearInput(true)
+        saveSucceeded();
       } else {
         if(response.status === 409) {
           saveFailed();
@@ -146,16 +147,16 @@ function Settings({setLoggedIn}) {
         <div className='settings-box'>
         {errMessage && <p className='settings-errMessage'>{errMessage}</p>}
             <div className='settings-inputContainer'>
-              <SettingsInput type={'email'} updateErrMessage={updateErrMessage} cancelClicked={cancelClicked} updateBody={updateBody} updateCancelClicked={updateCancelClicked}/>
-              <SettingsInput type={'username'} updateErrMessage={updateErrMessage} cancelClicked={cancelClicked} updateBody={updateBody} updateCancelClicked={updateCancelClicked}/>
-              <SettingsInput type={'password'} updateErrMessage={updateErrMessage} cancelClicked={cancelClicked} updateBody={updateBody} updateCancelClicked={updateCancelClicked}/>
+              <SettingsInput type={'email'} updateErrMessage={updateErrMessage} clearInput={clearInput} updateBody={updateBody} updateClearInput={updateClearInput}/>
+              <SettingsInput type={'username'} updateErrMessage={updateErrMessage} clearInput={clearInput} updateBody={updateBody} updateClearInput={updateClearInput}/>
+              <SettingsInput type={'password'} updateErrMessage={updateErrMessage} clearInput={clearInput} updateBody={updateBody} updateClearInput={updateClearInput}/>
             </div>
             <div className='settings-deleteAccountContainer'>
               <button className='settings-deleteAccount' onClick={onClickDeleteAcc}>delete account</button>
             </div>
             <div className='settings-btnContainer'>
                 <button className='settings-btn settings-cancel' onClick={() => {
-                  setCancelClicked(true)
+                  setClearInput(true)
                   setBody({})
                 }}>cancel</button>
                 <button className='settings-btn settings-save' onClick={() => {saveSettings()}}>save</button>

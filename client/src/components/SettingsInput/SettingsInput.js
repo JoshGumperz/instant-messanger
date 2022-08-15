@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { IoEyeSharp, IoEyeOutline } from 'react-icons/io5'
 import './SettingsInput.css'
 
-function SettingsInput({ type, cancelClicked, updateBody, updateCancelClicked, updateErrMessage }) {
+function SettingsInput({ type, clearInput, updateBody, updateClearInput, updateErrMessage }) {
   const [showPassword, setShowPassword] = useState(false)
   const [inputVal, setInputVal] = useState('')
   
 
   
   useEffect(() => {
-    if(cancelClicked) {
+    if(clearInput) {
       setInputVal('')
-      updateCancelClicked(false)
+      updateClearInput(false)
     }
-  }, [cancelClicked])
+  }, [clearInput])
 
   useEffect(() => {
     if(inputVal) {
