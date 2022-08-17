@@ -36,7 +36,9 @@ Password: 12345678
 
 All 9 test accounts already have each other added, so all you need to do after logging in is send a message.
 
-If you created your own account, you can add a contact to send messages to using this button: 
+
+
+If you created your own account however, you can add a contact to send messages to using this button: 
 ![Screenshot](https://i.imgur.com/JFpPQGT.png)
 
 You will then see a popup that looks like this
@@ -53,7 +55,7 @@ just enter the username of the account you'd like to send a message to, and you'
 
 ## Deployed Link
 
-* [See Live Site](https://whispering-thicket-43771.herokuapp.com/)
+* [See Live Site](https://jg-instant-messenger.herokuapp.com/)
 
 ## Author
 
